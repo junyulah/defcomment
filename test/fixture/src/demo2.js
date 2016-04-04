@@ -26,3 +26,17 @@ var map = (handler, data) => {
  * ]
  */
 var high = (a) => (b) => a * b;
+
+/**
+ * ## test
+ * [
+ *      [[2], 2],
+ *      [[-1], new Error('v is too little. v = -1')]
+ * ]
+ */
+var error = (v) => {
+    if(v < 0) {
+        throw new Error('v is too little. v = ' + v);
+    }
+    return v;
+};

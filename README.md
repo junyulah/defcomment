@@ -70,3 +70,25 @@ When your unit test is about a high order function, you should expand your array
  */
 var high = (a) => (b) => a * b;
 ```
+
+### how about exception
+
+If you function throw an error, you could just set expected output as an error.
+
+In the comparation between real output and expected output, just compare error type and error message.
+
+```js
+/**
+ * ## test
+ * [
+ *      [[2], 2],
+ *      [[-1], new Error('v is too little. v = -1')]
+ * ]
+ */
+var error = (v) => {
+    if(v < 0) {
+        throw new Error('v is too little. v = ' + v);
+    }
+    return v;
+};
+```

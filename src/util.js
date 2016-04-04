@@ -1,6 +1,8 @@
 var replacer = (key, value) => {
     if (typeof value === 'function') {
-        return value.toString();
+        return '[function] ' + value.toString();
+    } else if (value instanceof Error) {
+        return '[error] ' + value.message;
     }
     return value;
 };

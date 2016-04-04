@@ -27,9 +27,24 @@ var map = (handler, data) => {
  */
 var high = (a) => (b) => a * b;
 
+/**
+ * ## test
+ * [
+ *      [[2], 2],
+ *      [[-1], new Error('v is too little. v = -1')]
+ * ]
+ */
+var error = (v) => {
+    if(v < 0) {
+        throw new Error('v is too little. v = ' + v);
+    }
+    return v;
+};
+
 ;(function () {
         var __exportsVariable = require('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/src/runUnit').exportsVariable;
         __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo2.js', 'map', map);
 __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo2.js', 'high', high);
+__exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo2.js', 'error', error);
     })();
     

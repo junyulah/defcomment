@@ -19,22 +19,32 @@ let exportsVariable = (id, name, testVar) => {
 
 let runUnit = (id, testVar, sample) => {
     console.log(`[test] ${id}:${testVar} --------`);
-    var func = __env_global['__test_probe__'][id][testVar];
+    let func = __env_global['__test_probe__'][id][testVar];
     sample.map((testData) => {
-        var expectedOuput = testData.pop();
-        var ret = func;
+        let expectedOuput = testData.pop();
         if (!testData.length) {
             testData.push([]);
         }
-        var inputString = stringData(testData);
-        while (testData.length) {
-            var input = testData.shift();
-            ret = ret.apply(undefined, input);
-        }
+        let inputString = stringData(testData);
+        let ret = getRet(func, testData);
+        // equalilty
         eq(ret, expectedOuput);
         console.log('[test] equal for input ' + inputString + ' and output ' + stringData(expectedOuput) + ' . The real output is ' + stringData(ret));
     });
     console.log('[test] pass -----------------\n');
+};
+
+let getRet = (func, testData) => {
+    let ret = func;
+    while (testData.length) {
+        let input = testData.shift();
+        try {
+            ret = ret.apply(undefined, input);
+        } catch (err) {
+            return err;
+        }
+    }
+    return ret;
 };
 
 module.exports = {

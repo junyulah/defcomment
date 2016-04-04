@@ -7,3 +7,7 @@ runUnit('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/
 [[3], [5], 15],
 [[6], [7], 42]
 ]);
+runUnit('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo2.js', 'error', [
+[[2], 2],
+[[-1], new Error('v is too little. v = -1')]
+]);
