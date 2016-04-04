@@ -44,7 +44,7 @@ Just require the test files (generated in the step2).
 
 In your test data matrix, you can use js code. For example,
 
-```
+```js
 /**
  * define map function
  *
