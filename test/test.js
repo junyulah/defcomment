@@ -1,9 +1,23 @@
 var index = require('../src/index');
+var fs = require('fs');
 
 var generateTests = index.generateTests;
 
-var fs = require('fs');
+var srcDir = __dirname + '/fixture/src';
+var distDir = __dirname + '/fixture/ret';
+var testDir = __dirname + '/fixture/test';
 
-generateTests(__dirname + '/fixture/src/demo1.js', __dirname + '/fixture/ret/demo1.js', __dirname + '/fixture/test/demo1.js').then(() => {
-    require(__dirname + '/fixture/test/demo1.js');
-}).catch(err => console.log(err, err.stack));
+var runUnit = (name) => {
+    var src = srcDir + '/' + name;
+    var dist = distDir + '/' + name;
+    var test = testDir + '/' + name;
+    return generateTests(src, dist, test).then(() => {
+        require(test);
+    }).catch(err => console.log(err, err.stack));
+};
+
+// test1
+runUnit('demo1.js');
+
+// test2
+runUnit('demo2.js');

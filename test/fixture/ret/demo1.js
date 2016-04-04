@@ -22,19 +22,21 @@ var sub = (a, b) => a - b
 
 /**
  * ## test
+ * [
+ *     [100]
+ * ]
+ */
+var con = () => 100
+
+/**
+ * ## test
  */
 
 function b() {}
 
 ;(function () {
-        var __env_global = null;
-        if(typeof window !== 'undefined') {
-            __env_global = window;
-        } else {
-            __env_global = global;
-        }
-        __env_global['__test_probe__'] = __env_global['__test_probe__'] || {};
-        __env_global['__test_probe__']['/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js'] = __env_global['__test_probe__']['/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js'] || {};
-        __env_global['__test_probe__']['/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js']['add'] = add;
+        var __exportsVariable = require('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/src/runUnit').exportsVariable;
+        __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js', 'add', add);
+__exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js', 'con', con);
     })();
     

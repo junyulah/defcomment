@@ -22,6 +22,14 @@ var sub = (a, b) => a - b
 
 /**
  * ## test
+ * [
+ *     [100]
+ * ]
+ */
+var con = () => 100
+
+/**
+ * ## test
  */
 
 function b() {}

@@ -38,51 +38,22 @@ let testParser = (blocks, id) => {
 
 let getTestCode = (tests, id) => {
     let unitTests = tests.map(test => {
-        return `
-        var __env_global = null;
-        if(typeof window !== 'undefined') {
-            __env_global = window;
-        } else {
-            __env_global = global;
-        }
-        (function () { 
-            console.log('[test] ${id}:${test.testVar} --------');
-            var testDataMatrix = ${test.sample};
-            var func = __env_global['__test_probe__']['${id}']['${test.testVar}']
-            testDataMatrix.map((testData) => {
-                var input = testData[0];
-                var expectedOuput = testData[1];
-                var ret = func.apply(undefined, input);
-                eq(ret, expectedOuput);
-                console.log('[test] equal for input ' + input + ' and output ' + expectedOuput + ' . The real output is ' + ret);
-            });
-
-            console.log('[test] pass -----------------');
-        })();`;
+        return `runUnit('${id}', '${test.testVar}', ${test.sample});`
     });
 
-    return `
-            require('${id}');
-            var eq = require('${__dirname}/eq');
-            ${unitTests.join('\n')}
-        `;
+    return `require('${id}');
+    var runUnit = require('${__dirname}/runUnit').runUnit;
+    ${unitTests.join('\n')}`;
 };
 
 let getInjectCode = (tests, id) => {
     let varExports = tests.map(test =>
-        `__env_global['__test_probe__']['${id}']['${test.testVar}'] = ${test.testVar};`
+        `__exportsVariable('${id}', '${test.testVar}', ${test.testVar});`
     );
 
     return `;(function () {
-        var __env_global = null;
-        if(typeof window !== 'undefined') {
-            __env_global = window;
-        } else {
-            __env_global = global;
-        }
-        __env_global['__test_probe__'] = __env_global['__test_probe__'] || {};
-        __env_global['__test_probe__']['${id}'] = __env_global['__test_probe__']['${id}'] || {};
-        ${varExports}
+        var __exportsVariable = require('${__dirname}/runUnit').exportsVariable;
+        ${varExports.join("\n")}
     })();
     `;
 };
