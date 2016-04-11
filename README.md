@@ -43,42 +43,6 @@ quick({
 
 Then, run this file, you will have a file watcher and when you change your source code, your unit tests will run automatically.
 
-### general usage
-
-- step1 add commenting to you code, like this
-
-- step2 compile source code
-
-```js
-var def = require('defcomment');
-var generateTests = def.generateTests;
-
-generateTests(srcFilePath, distFilePath, testPath);
-
-```
-
-Using generateTests api, pass source code file path, dist file path and test file path.
-
-- step3 run tests
-
-Just require the test files (generated in the step2).
-
-- js code in  test commenting
-
-In your test data matrix, you can use js code. For example,
-
-```js
-/**
- * define map function
- *
- * ## test
- * [
- *      [[v => ++v, [3, 4, 7]], [4, 5, 8]]
- * ]
- */
-var map = (handler, data) => {}
-```
-
 ### how about high order function
 
 When your unit test is about a high order function, you should expand your array. See the example
@@ -114,4 +78,40 @@ var error = (v) => {
     }
     return v;
 };
+```
+
+### general usage
+
+- step1 add commenting to you code, like this
+
+- step2 compile source code
+
+```js
+var def = require('defcomment');
+var generateTests = def.generateTests;
+
+generateTests(srcFilePath, distFilePath, testPath);
+
+```
+
+Using generateTests api, pass source code file path, dist file path and test file path.
+
+- step3 run tests
+
+Just require the test files (generated in the step2).
+
+- js code in  test commenting
+
+In your test data matrix, you can use js code. For example,
+
+```js
+/**
+ * define map function
+ *
+ * ## test
+ * [
+ *      [[v => ++v, [3, 4, 7]], [4, 5, 8]]
+ * ]
+ */
+var map = (handler, data) => {}
 ```
