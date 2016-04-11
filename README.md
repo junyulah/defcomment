@@ -4,6 +4,10 @@
 
 A simple library to translate code commenting to tests or other.
 
+## install
+
+`npm i defcomment`
+
 ## generate test
 
 ### how to write tests in commenting
