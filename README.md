@@ -6,7 +6,7 @@ A simple library to translate code commenting to tests or other.
 
 ## install
 
-`npm i defcomment`
+`npm i defcomment --save`
 
 ## generate test
 
