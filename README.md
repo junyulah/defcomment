@@ -51,13 +51,17 @@ defComment provides a quick apporach. Just write a little code like these:
 ```js
 var quick = require('defcomment/ext/quick');
 quick({
-    srcDir: 'src', // your source directory
-    distDir: 'test/unit/ret', // some place to hold compiled code, do not use these code for other usage.
-    testDir: 'test/unit/test' // some place to hold your generated tests.
+    srcDir: __dirname + '/src', // your source directory
+    distDir: __dirname + '/test/unit/ret', // some place to hold compiled code, do not use these code for other usage.
+    testDir: __dirname + '/test/unit/test' // some place to hold your generated tests.
 });
 ```
 
 Then, run this file, you will have a file watcher and when you change your source code, your unit tests will run automatically.
+
+- pay attention
+
+srcDir distDir testDir must be absolute path.
 
 ### how about high order function
 
