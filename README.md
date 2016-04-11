@@ -6,7 +6,7 @@ A simple library to translate code commenting to tests or other.
 
 ## generate test
 
-### step1 add commenting to you code, like this
+### how to write tests in commenting
 
 ```js
 /**
@@ -24,7 +24,26 @@ var add = (a, b) => a + b
 
 In our code, we use `## test` as commenting title (you can use one or more # before the word test).the next lines after `## test` is our test data. It's a matrix which contain some arrays, each array has two value. The first is input arguments, the second is the expected response.
 
-### step2 compile source code
+- step1 add commenting to you code, like this
+
+- step2 compile source code
+
+### quick usage
+
+defComment provides a quick apporach. Just write a little code like these:
+
+```js
+var quick = require('defcomment/ext/quick');
+quick({
+    srcDir: 'src', // your test file
+    distDir: 'ret', // some place to hold compiled code, do not use these code for other usage.
+    testDir: 'test' // some place to hold your generated tests.
+});
+```
+
+Then, run this file, you will have a file watcher and when you change your source code, your unit tests will run automatically.
+
+### general usage
 
 ```js
 var def = require('defcomment');
@@ -36,11 +55,11 @@ generateTests(srcFilePath, distFilePath, testPath);
 
 Using generateTests api, pass source code file path, dist file path and test file path.
 
-### step3 run tests
+- step3 run tests
 
 Just require the test files (generated in the step2).
 
-### js code in  test commenting
+- js code in  test commenting
 
 In your test data matrix, you can use js code. For example,
 
