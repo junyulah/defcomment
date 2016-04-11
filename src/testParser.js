@@ -1,6 +1,7 @@
 'use strict';
 
 let log = console.log; // eslint-disable-line
+
 /**
  * blocks -> (injectCode, testCodes)
  */
