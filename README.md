@@ -52,8 +52,8 @@ defComment provides a quick apporach. Just write a little code like these:
 var quick = require('defcomment/ext/quick');
 quick({
     srcDir: 'src', // your source directory
-    distDir: 'ret', // some place to hold compiled code, do not use these code for other usage.
-    testDir: 'test' // some place to hold your generated tests.
+    distDir: 'test/unit/ret', // some place to hold compiled code, do not use these code for other usage.
+    testDir: 'test/unit/test' // some place to hold your generated tests.
 });
 ```
 
