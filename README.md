@@ -62,7 +62,7 @@ var high = (a) => (b) => a * b;
 
 If you function throw an error, you could just set expected output as an error.
 
-In the comparation between real output and expected output, just compare error type and error message.
+In the comparation between real output and expected output, just compare error message.
 
 ```js
 /**
