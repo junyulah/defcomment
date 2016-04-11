@@ -28,10 +28,6 @@ var add = (a, b) => a + b
 
 In our code, we use `## test` as commenting title (you can use one or more # before the word test).the next lines after `## test` is our test data. It's a matrix which contain some arrays, each array has two value. The first is input arguments, the second is the expected response.
 
-- step1 add commenting to you code, like this
-
-- step2 compile source code
-
 ### quick usage
 
 defComment provides a quick apporach. Just write a little code like these:
@@ -48,6 +44,10 @@ quick({
 Then, run this file, you will have a file watcher and when you change your source code, your unit tests will run automatically.
 
 ### general usage
+
+- step1 add commenting to you code, like this
+
+- step2 compile source code
 
 ```js
 var def = require('defcomment');
