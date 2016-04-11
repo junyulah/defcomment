@@ -28,6 +28,22 @@ var add = (a, b) => a + b
 
 In our code, we use `## test` as commenting title (you can use one or more # before the word test).the next lines after `## test` is our test data. It's a matrix which contain some arrays, each array has two value. The first is input arguments, the second is the expected response.
 
+- js code in  test commenting
+
+In your test data matrix, you can use js code. For example,
+
+```js
+/**
+ * define map function
+ *
+ * ## test
+ * [
+ *      [[v => ++v, [3, 4, 7]], [4, 5, 8]]
+ * ]
+ */
+var map = (handler, data) => {}
+```
+
 ### quick usage
 
 defComment provides a quick apporach. Just write a little code like these:
@@ -100,18 +116,6 @@ Using generateTests api, pass source code file path, dist file path and test fil
 
 Just require the test files (generated in the step2).
 
-- js code in  test commenting
-
-In your test data matrix, you can use js code. For example,
-
-```js
-/**
- * define map function
- *
- * ## test
- * [
- *      [[v => ++v, [3, 4, 7]], [4, 5, 8]]
- * ]
- */
-var map = (handler, data) => {}
+```
+require('testfile.js'); // testfile.js generated in step2
 ```
