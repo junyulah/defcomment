@@ -19,7 +19,7 @@ module.exports = (opts) => {
         try {
             docTest.docToTest(opts);
         } catch (err) {
-            log(err);
+            log(err.stack);
         }
     });
 };

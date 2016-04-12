@@ -32,7 +32,6 @@ let docToTest = (opts) => {
                     log('\x1b[34m', '[run tests of test file] ' + file, '\x1b[0m');
                     let code = fs.readFileSync(file, 'utf-8');
                     eval(code);
-
                 }
             }
         });

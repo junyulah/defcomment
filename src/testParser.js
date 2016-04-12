@@ -41,7 +41,14 @@ let testParser = (blocks, id) => {
 
 let getTestCode = (tests, id) => {
     let unitTests = tests.map(test => {
-        return `runUnit('${id}', '${test.testVar}', ${test.sample});`;
+        let sampleString = JSON.stringify(test.sample.toString());
+        return `try{
+        runUnit('${id}', '${test.testVar}', ${test.sample});
+        } catch(err) {
+            console.log('\x1b[31m', '[error happened when test method "${test.testVar}"]', '\x1b[0m');
+            console.log('\x1b[33m', 'test sample is:' + ${sampleString}, '\x1b[0m');
+            console.log(err.stack);
+    }`;
     });
 
     return `
@@ -50,8 +57,8 @@ let getTestCode = (tests, id) => {
         var runUnit = require('${__dirname}/runUnit').runUnit;
         ${unitTests.join('\n')}
     } catch(err) {
-        console.log('\x1b[36m', '[error happened when run unit case]', '\x1b[0m]');
-        console.log(err);
+        console.log('\x1b[31m', '[error happened when run unit case]', '\x1b[0m');
+        console.log(err.stack);
     }
     `;
 };

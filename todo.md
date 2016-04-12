@@ -1,6 +1,8 @@
 ## todo
 
-- show to support io and async
+- support io and async
+
+- print error stack and error color
 
 ## finished
 
