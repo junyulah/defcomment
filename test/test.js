@@ -1,5 +1,5 @@
 var index = require('../src/index');
-var fs = require('fs');
+var log = console.log; // eslint-disable-line
 
 var generateTests = index.generateTests;
 
@@ -13,7 +13,7 @@ var runUnit = (name) => {
     var test = testDir + '/' + name;
     return generateTests(src, dist, test).then(() => {
         require(test);
-    }).catch(err => console.log(err, err.stack));
+    }).catch(err => log(err, err.stack));
 };
 
 // test1

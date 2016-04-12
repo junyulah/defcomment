@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
 let parseComment = require('./parseComment');
-let testParser = require('./testParser')
+let testParser = require('./testParser');
 let promisfy = require('./promisify');
 let fs = require('fs');
 

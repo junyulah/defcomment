@@ -1,6 +1,6 @@
 {
   "name": "defcomment",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "commenting",
   "main": "src/index.js",
   "directories": {
@@ -18,6 +18,8 @@
   "author": "ddchen",
   "license": "MIT",
   "dependencies": {
-    "cl-jsoneq": "0.0.2"
+    "chokidar": "^1.4.3",
+    "cl-jsoneq": "0.0.2",
+    "es6-promisify": "^4.0.0"
   }
 }

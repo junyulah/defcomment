@@ -1,7 +1,7 @@
 /**
  * comment is code is useful
  */
-'use strict'
+'use strict';
 
 let parseComment = (code) => {
     let blocks = getCommentBlocks(code);
@@ -35,7 +35,7 @@ let getCommentBlocks = (code) => {
         last.next = code;
 
     return commentBlocks;
-}
+};
 
 let preComment = (comment) => {
     comment = comment.substring(2);
@@ -54,7 +54,7 @@ let preComment = (comment) => {
         }
     }
     return newLines;
-}
+};
 
 let getParaBlocks = (lines) => {
     let paraBlocks = [];
@@ -70,6 +70,6 @@ let getParaBlocks = (lines) => {
     }
     if (curBlock) paraBlocks.push(curBlock);
     return paraBlocks;
-}
+};
 
 module.exports = parseComment;

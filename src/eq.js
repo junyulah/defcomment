@@ -1,13 +1,17 @@
-'use strict'
+'use strict';
 
 let jsonEq = require('cl-jsoneq');
 
 let util = require('./util');
 let stringData = util.stringData;
+let logError = util.logError;
+let logNormal = util.logNormal;
 
 let errorInfo = (data1, data2) => {
-    throw new Error('Data is not equal. data1 is ' + stringData(data1) + ';  data2 is ' + stringData(data2));
-}
+    logError('[error] Data is not equal. data1 is ' + stringData(data1) + ';  data2 is ' + stringData(data2));
+    let err = new Error('Data is not equal');
+    logNormal(err.stack);
+};
 
 module.exports = (data1, data2) => {
     if (data1 instanceof Error) {

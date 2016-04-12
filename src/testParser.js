@@ -1,4 +1,10 @@
-'use strict'
+'use strict';
+
+let log = console.log; // eslint-disable-line
+let util = require('./util');
+let logHint = util.logHint;
+let logNormal = util.logNormal;
+
 /**
  * blocks -> (injectCode, testCodes)
  */
@@ -19,8 +25,8 @@ let testParser = (blocks, id) => {
         if (!sample) return prev;
         let testVar = getTestVariable(block.next);
         if (!testVar) {
-            console.warn('could not find function name. please use "let(could change to var or const something) a = " or "function a " at the first none-empty line under comments.');
-            console.log(block);
+            logHint('could not find function name. please use "let(could change to var or const something) a = " or "function a " at the first none-empty line under comments.');
+            logNormal(block);
             return prev;
         }
         prev.push({
@@ -38,12 +44,30 @@ let testParser = (blocks, id) => {
 
 let getTestCode = (tests, id) => {
     let unitTests = tests.map(test => {
-        return `runUnit('${id}', '${test.testVar}', ${test.sample});`
+        let sampleString = JSON.stringify(test.sample.toString());
+        return `(function() { try{
+            var sample = ${test.sample};
+            var id = '${id}';
+            var varName = '${test.testVar}';
+            var sampleString = ${sampleString};
+            runUnit(id, varName, sample);
+        } catch(err) {
+            console.log('\x1b[31m', '[error happened when test method ' + varName + ']', '\x1b[0m');
+            console.log('\x1b[33m', 'test sample is:' + sampleString, '\x1b[0m');
+            console.log(err.stack);
+    } })();`;
     });
 
-    return `require('${id}');
-    var runUnit = require('${__dirname}/runUnit').runUnit;
-    ${unitTests.join('\n')}`;
+    return `
+    try {
+        require('${id}');
+        var runUnit = require('${__dirname}/runUnit').runUnit;
+        ${unitTests.join('\n')}
+    } catch(err) {
+        console.log('\x1b[31m', '[error happened when run unit case]', '\x1b[0m');
+        console.log(err.stack);
+    }
+    `;
 };
 
 let getInjectCode = (tests, id) => {
