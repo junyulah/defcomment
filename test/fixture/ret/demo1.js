@@ -23,7 +23,7 @@ var sub = (a, b) => a - b;
 /**
  * ## test
  * [
- *     [100]
+ *     [[], 100]
  * ]
  */
 var con = () => 100;
@@ -51,11 +51,30 @@ var max = (a, b) => a > b ? a : b;
  */
 var min = (a, b) => a > b ? b : a;
 
+/**
+ * ## test
+ * [
+ *      [[3, 2], [], 4],
+ *      [[3, 2], [], 4]
+ * ]
+ */
+var min2 = (a, b) => a > b ? b : a;
+
+/**
+ * ## test
+ * [
+ *      [200]
+ * ]
+ */
+var v = 200
+
 ;(function () {
         var __exportsVariable = require('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/src/runUnit').exportsVariable;
         __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js', 'add', add);
 __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js', 'con', con);
 __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js', 'max', max);
 __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js', 'min', min);
+__exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js', 'min2', min2);
+__exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js', 'v', v);
     })();
     

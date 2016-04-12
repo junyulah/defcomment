@@ -4,13 +4,13 @@ let jsonEq = require('cl-jsoneq');
 
 let util = require('./util');
 let stringData = util.stringData;
-
-let log = console.log; // eslint-disable-line
+let logError = util.logError;
+let logNormal = util.logNormal;
 
 let errorInfo = (data1, data2) => {
-    log('\x1b[31m', '[error] Data is not equal. data1 is ' + stringData(data1) + ';  data2 is ' + stringData(data2), '\x1b[0m');
+    logError('[error] Data is not equal. data1 is ' + stringData(data1) + ';  data2 is ' + stringData(data2));
     let err = new Error('Data is not equal');
-    log(err.stack);
+    logNormal(err.stack);
 };
 
 module.exports = (data1, data2) => {
