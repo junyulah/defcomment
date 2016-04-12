@@ -4,6 +4,8 @@
 
 - print error stack and error color
 
+- just run inner
+
 ## finished
 
 - support high order function
