@@ -1,5 +1,7 @@
 ## todo
 
+- summary test results and report it
+
 - support io and async
 
 - print error stack and error color
