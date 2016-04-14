@@ -1,6 +1,6 @@
 {
   "name": "defcomment",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "commenting",
   "main": "src/index.js",
   "directories": {

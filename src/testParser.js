@@ -45,29 +45,26 @@ let testParser = (blocks, id) => {
 let getTestCode = (tests, id) => {
     let unitTests = tests.map(test => {
         let sampleString = JSON.stringify(test.sample.toString());
-        return `(function() { try{
-            var sample = ${test.sample};
-            var id = '${id}';
-            var varName = '${test.testVar}';
-            var sampleString = ${sampleString};
-            runUnit(id, varName, sample);
-        } catch(err) {
-            console.log('\x1b[31m', '[error happened when test method ' + varName + ']', '\x1b[0m');
-            console.log('\x1b[33m', 'test sample is:' + sampleString, '\x1b[0m');
-            console.log(err.stack);
-    } })();`;
+        return `cases.push(
+    it('${id}',
+         '${test.testVar}',
+         ${test.sample},
+         ${sampleString})
+);`;
     });
 
-    return `
-    try {
-        require('${id}');
-        var runUnit = require('${__dirname}/runUnit').runUnit;
-        ${unitTests.join('\n')}
-    } catch(err) {
-        console.log('\x1b[31m', '[error happened when run unit case]', '\x1b[0m');
-        console.log(err.stack);
-    }
-    `;
+    return `'use strict';
+require('${id}');
+let unit = require('${__dirname}/unit');
+let it = unit.it;
+let runCases = unit.runCases;
+let cases = [];
+${unitTests.join('\n\n')}
+var testRets = runCases(cases, '${id}');
+if(typeof module === 'object') {
+    module.exports = testRets;
+}
+`;
 };
 
 let getInjectCode = (tests, id) => {
@@ -76,8 +73,8 @@ let getInjectCode = (tests, id) => {
     );
 
     return `;(function () {
-        var __exportsVariable = require('${__dirname}/runUnit').exportsVariable;
-        ${varExports.join("\n")}
+        var __exportsVariable = require('${__dirname}/unit').exportsVariable;
+        ${varExports.join('\n')}
     })();
     `;
 };

@@ -1,18 +1,44 @@
 'use strict';
 
 let defcomment = require('../../src');
+let util = require('../../src/util');
 let visit = require('./visit');
 let mkdirp = require('mkdirp');
 let del = require('del');
 let generateTests = defcomment.generateTests;
 let path = require('path');
-let fs = require('fs');
 
-let log = console.log; // eslint-disable-line
+let logNormal = util.logNormal;
+let logPass = util.logPass;
+let logError = util.logError;
+let logHint = util.logHint;
 
 let Promise = global.Promise;
 
 let docToTest = (opts) => {
+    return getAllTestRets(opts).then((allRets) => {
+        let sum = allRets.reduce((prev, cur) => {
+            return prev + cur.cases.length;
+        }, 0);
+        let fails = allRets.reduce((prev, cur) => {
+            return prev.concat(cur.fail);
+        }, []);
+
+        if (fails.length) {
+            logError('[failed units tests: ]');
+            fails.forEach((fail) => {
+                logHint(`\t${fail.id}:${fail.varName}`);
+            });
+        }
+        logPass('[test units results: ]');
+        logPass('\tthe sum of tests: ' + sum);
+        logPass('\tthe sum of passing tests: ' + (sum - fails.length));
+
+        logNormal('\n\n');
+    }).catch(err => logError(err.stack));
+};
+
+let getAllTestRets = (opts) => {
     let srcDir = opts.srcDir;
     let distDir = opts.distDir;
     let testDir = opts.testDir;
@@ -26,14 +52,17 @@ let docToTest = (opts) => {
             }
         });
     }).then(() => {
+        let allResults = [];
         return visit(testDir, {
             handleFile: (file) => {
                 if (path.extname(file) === '.js') {
-                    log('\x1b[34m', '[run tests of test file] ' + file, '\x1b[0m');
-                    let code = fs.readFileSync(file, 'utf-8');
-                    eval(code);
+                    delete require.cache[require.resolve(file)];
+                    let testRets = require(file);
+                    allResults.push(testRets);
                 }
             }
+        }).then(() => {
+            return Promise.resolve(allResults);
         });
     });
 };

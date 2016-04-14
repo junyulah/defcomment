@@ -69,7 +69,7 @@ var min2 = (a, b) => a > b ? b : a;
 var v = 200
 
 ;(function () {
-        var __exportsVariable = require('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/src/runUnit').exportsVariable;
+        var __exportsVariable = require('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/src/unit').exportsVariable;
         __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js', 'add', add);
 __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js', 'con', con);
 __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo1.js', 'max', max);

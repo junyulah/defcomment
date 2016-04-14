@@ -1,10 +1,11 @@
+'use strict';
+require('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo0.js');
+let unit = require('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/src/unit');
+let it = unit.it;
+let runCases = unit.runCases;
+let cases = [];
 
-    try {
-        require('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo0.js');
-        var runUnit = require('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/src/runUnit').runUnit;
-        
-    } catch(err) {
-        console.log('[31m', '[error happened when run unit case]', '[0m');
-        console.log(err.stack);
-    }
-    
+var testRets = runCases(cases, '/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo0.js');
+if(typeof module === 'object') {
+    module.exports = testRets;
+}

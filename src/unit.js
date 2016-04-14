@@ -23,7 +23,38 @@ let exportsVariable = (id, name, testVar) => {
     testProbe[id][name] = testVar;
 };
 
-let runUnit = (id, testVar, sample) => {
+let runCases = (cases, id) => {
+    let fail = cases.filter((c) => {
+        return !c.fun();
+    }, []);
+    return {
+        cases,
+        fail,
+        id
+    };
+};
+
+let it = (id, varName, sample, sampleString) => {
+    return {
+        fun: () => runUnit(id, varName, sample, sampleString),
+        varName,
+        id
+    };
+};
+
+let runUnit = (id, varName, sample, sampleString) => {
+    try {
+        run(id, varName, sample);
+    } catch (err) {
+        logError('[error happened when test method ' + varName + ']');
+        logHint('test sample is:' + sampleString);
+        logNormal(err.stack);
+        return false;
+    }
+    return true;
+};
+
+let run = (id, testVar, sample) => {
     logPass(`[test] ${id}:${testVar} --------`);
     checkSample(sample);
 
@@ -37,8 +68,6 @@ let runUnit = (id, testVar, sample) => {
         logHint('[test] equal for input ' + inputString + ' and output ' + stringData(expectedOuput) + ' . The real output is ' + stringData(ret));
     });
     logNormal('');
-
-    logPass('[test] pass -----------------\n');
 };
 
 let checkSample = (sample) => {
@@ -62,7 +91,7 @@ let getRet = (func, testData) => {
     let ret = func;
     while (testData.length) {
         let input = testData.shift();
-        if(typeof ret !== 'function') {
+        if (typeof ret !== 'function') {
             logError('[error getRet] can not prosses inputdata, have more levels inputData.');
             logHint('inputData is ' + stringData(testData));
             throw new Error('Expect function for testData');
@@ -80,5 +109,7 @@ let isArray = v => v && typeof v === 'object' && typeof v.length === 'number';
 
 module.exports = {
     runUnit,
-    exportsVariable
+    it,
+    exportsVariable,
+    runCases
 };
