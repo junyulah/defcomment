@@ -8,6 +8,8 @@
 
 - just run inner
 
+- support grep tests
+
 ## finished
 
 - support high order function
