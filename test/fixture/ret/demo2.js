@@ -43,7 +43,7 @@ var error = (v) => {
 };
 
 ;(function () {
-        var __exportsVariable = require('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/src/runUnit').exportsVariable;
+        var __exportsVariable = require('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/src/unit').exportsVariable;
         __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo2.js', 'map', map);
 __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo2.js', 'high', high);
 __exportsVariable('/Users/yuer/workspaceforme/my_services/thirdparty/node/defcomment/test/fixture/ret/demo2.js', 'error', error);

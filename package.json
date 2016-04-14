@@ -1,6 +1,6 @@
 {
   "name": "defcomment",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "description": "commenting",
   "main": "src/index.js",
   "directories": {
@@ -20,6 +20,8 @@
   "dependencies": {
     "chokidar": "^1.4.3",
     "cl-jsoneq": "0.0.2",
-    "es6-promisify": "^4.0.0"
+    "del": "^2.2.0",
+    "es6-promisify": "^4.0.0",
+    "mkdirp": "^0.5.1"
   }
 }
