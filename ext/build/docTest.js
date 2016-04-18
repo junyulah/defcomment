@@ -57,7 +57,13 @@ let getAllTestRets = (opts) => {
             handleFile: (file) => {
                 if (path.extname(file) === '.js') {
                     delete require.cache[require.resolve(file)];
-                    let testRets = require(file);
+                    let testRets = null;
+                    try {
+                        testRets = require(file);
+                    } catch (err) {
+                        logError('[Error-require-test-file] test file is: ' + file);
+                        logNormal(err.stack);
+                    }
                     allResults.push(testRets);
                 }
             }
