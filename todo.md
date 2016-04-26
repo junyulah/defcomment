@@ -10,6 +10,8 @@
 
 - support grep tests
 
+- plugins: support test react component
+
 ## finished
 
 - support high order function
