@@ -8,12 +8,29 @@ let fs = require('fs');
 let writeFile = promisfy(fs.writeFile);
 let readFile = promisfy(fs.readFile);
 
-let generateTests = (src, dist, test) => {
-    return readFile(src, 'utf-8').then(code => {
+/**
+ * @param src String
+ *   source code file path
+ * @param dest String
+ *   destination code file path
+ * @param test String
+ *   test code file path
+ */
+let generateTests = (src, dest, test) => {
+    return readFile(src, 'utf-8').then((code) => {
+        // parse code
         let blocks = parseComment(code);
-        let ret = testParser(blocks, dist);
-        let resultCode = code + '\n' + ret.injectCode;
-        return Promise.all([writeFile(test, ret.testCode, 'utf-8'), writeFile(dist, resultCode, 'utf-8')]);
+        // generate test code
+        let {
+            injectCode, testCode
+        } = testParser(blocks, dest);
+
+        let resultCode = code + '\n' + injectCode;
+
+        return Promise.all([
+            writeFile(test, testCode, 'utf-8'),
+            writeFile(dest, resultCode, 'utf-8')
+        ]);
     });
 };
 

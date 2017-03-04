@@ -1,9 +1,8 @@
 'use strict';
 
-let log = console.log; // eslint-disable-line
-let util = require('./util');
-let logHint = util.logHint;
-let logNormal = util.logNormal;
+let {
+    logHint, logNormal
+} = require('./util');
 
 /**
  * blocks -> (injectCode, testCodes)
@@ -35,6 +34,7 @@ let testParser = (blocks, id) => {
         });
         return prev;
     }, []);
+
     return {
         injectCode: getInjectCode(tests, id),
         testCode: getTestCode(tests, id),
@@ -54,16 +54,20 @@ let getTestCode = (tests, id) => {
     });
 
     return `'use strict';
-require('${id}');
-let unit = require('${__dirname}/unit');
-let it = unit.it;
-let runCases = unit.runCases;
-let cases = [];
-${unitTests.join('\n\n')}
-var testRets = runCases(cases, '${id}');
-if(typeof module === 'object') {
-    module.exports = testRets;
-}
+    require('${id}');
+
+    let unit = require('${__dirname}/unit');
+    let it = unit.it;
+    let runCases = unit.runCases;
+    let cases = [];
+
+    ${unitTests.join('\n\n')}
+
+    var testRets = runCases(cases, '${id}');
+
+    if(typeof module === 'object') {
+        module.exports = testRets;
+    }
 `;
 };
 

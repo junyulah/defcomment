@@ -42,6 +42,7 @@ let getAllTestRets = (opts) => {
     let srcDir = opts.srcDir;
     let distDir = opts.distDir;
     let testDir = opts.testDir;
+
     return Promise.all([del(distDir), del(testDir)]).then(() => {
         return visit(srcDir, {
             handleFile: (file) => {

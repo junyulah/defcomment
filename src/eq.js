@@ -2,10 +2,9 @@
 
 let jsonEq = require('cl-jsoneq');
 
-let util = require('./util');
-let stringData = util.stringData;
-let logError = util.logError;
-let logNormal = util.logNormal;
+let {
+    stringData, logError, logNormal
+} = require('./util');
 
 let errorInfo = (data1, data2) => {
     logError('[error] Data is not equal. data1 is ' + stringData(data1) + ';  data2 is ' + stringData(data2));

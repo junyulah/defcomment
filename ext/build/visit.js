@@ -14,6 +14,7 @@ let visit = (p, opts) => {
     opts = opts || {};
     let handleFile = opts.handleFile || id;
     let handleDir = opts.handleDir || id;
+
     return stat(p).then((stats) => {
         if (stats.isFile()) {
             let ret = handleFile(p);
