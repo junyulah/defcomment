@@ -1,11 +1,8 @@
 'use strict';
 
-let util = require('./util');
-let stringData = util.stringData;
-let logError = util.logError;
-let logNormal = util.logNormal;
-let logPass = util.logPass;
-let logHint = util.logHint;
+let {
+    stringData, logError, logNormal, logPass, logHint
+} = require('../util');
 
 let eq = require('./eq');
 
@@ -27,6 +24,7 @@ let runCases = (cases, id) => {
     let fail = cases.filter((c) => {
         return !c.fun();
     }, []);
+
     return {
         cases,
         fail,

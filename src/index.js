@@ -1,7 +1,7 @@
 'use strict';
 
 let parseComment = require('./parseComment');
-let testParser = require('./testParser');
+let testParser = require('./testParser.js');
 let promisfy = require('./promisify');
 let fs = require('fs');
 
@@ -16,14 +16,14 @@ let readFile = promisfy(fs.readFile);
  * @param test String
  *   test code file path
  */
-let generateTests = (src, dest, test) => {
+let generateTests = (src, dest, test, opts) => {
     return readFile(src, 'utf-8').then((code) => {
         // parse code
         let blocks = parseComment(code);
         // generate test code
         let {
             injectCode, testCode
-        } = testParser(blocks, dest);
+        } = testParser(blocks, dest, opts);
 
         let resultCode = code + '\n' + injectCode;
 

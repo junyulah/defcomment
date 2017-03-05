@@ -8,7 +8,7 @@ const MINIMAL_PREFIX_LENGTH = 2;
 
 const MINIMAL_SUFFIX_LENGTH = 2;
 
-const PARA_BLOCK_PREFIX = '#'
+const PARA_BLOCK_PREFIX = '#';
 
 /**
  * comment is code is useful
