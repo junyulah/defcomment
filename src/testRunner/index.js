@@ -26,7 +26,10 @@ let genTestComponents = (code, id, opts) => {
     };
 };
 
-let runTests = (code, dest, test, opts) => {
+/**
+ * run tests from source code
+ */
+let runTests = (code, dest, test, opts = {}) => {
     let {
         resultCode, testCode
     } = genTestComponents(code, dest, opts);
@@ -36,13 +39,13 @@ let runTests = (code, dest, test, opts) => {
         writeFile(dest, resultCode, 'utf-8')
     ]).then(() => {
         let child = fork('testProcess.js', [test], {
-            stdio: 'inherit',
-            cwd: __dirname
+            cwd: __dirname,
+            silent: opts.silent
         });
 
         return new Promise((resolve, reject) => {
-            child.on('message', (e) => resolve(e));
-            child.on('error', (err) => reject(err));
+            child.on('message', resolve);
+            child.on('error', reject);
         });
     });
 };
