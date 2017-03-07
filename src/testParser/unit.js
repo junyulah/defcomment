@@ -21,8 +21,15 @@ let exportsVariable = (id, name, testVar) => {
 };
 
 let runCases = (cases, id) => {
-    let fail = cases.filter((c) => {
-        return !c.fun();
+    let fail = cases.reduce((prev, c) => {
+        let ret = c.fun();
+        if (!ret.result) {
+            c.stack = ret.stack;
+            c.errorMsg = ret.errorMsg;
+            prev.push(c);
+        }
+
+        return prev;
     }, []);
 
     return {
@@ -36,7 +43,9 @@ let it = (id, varName, sample, sampleString) => {
     return {
         fun: () => runUnit(id, varName, sample, sampleString),
         varName,
-        id
+        id,
+        sample,
+        sampleString
     };
 };
 
@@ -47,9 +56,16 @@ let runUnit = (id, varName, sample, sampleString) => {
         logError('[error happened when test method ' + varName + ']');
         logHint('test sample is:' + sampleString);
         logNormal(err.stack);
-        return false;
+
+        return {
+            result: false,
+            stack: err.stack,
+            errorMsg: err.errorMsg
+        };
     }
-    return true;
+    return {
+        result: true
+    };
 };
 
 let run = (id, testVar, sample) => {
@@ -106,7 +122,6 @@ let getRet = (func, testData) => {
 let isArray = v => v && typeof v === 'object' && typeof v.length === 'number';
 
 module.exports = {
-    runUnit,
     it,
     exportsVariable,
     runCases

@@ -7,8 +7,10 @@ let {
 } = require('../util');
 
 let errorInfo = (data1, data2) => {
-    logError('[error] Data is not equal. data1 is ' + stringData(data1) + ';  data2 is ' + stringData(data2));
+    let errorMsg = '[error] Data is not equal. target is ' + stringData(data1) + ';  source is ' + stringData(data2);
+    logError(errorMsg);
     let err = new Error('Data is not equal');
+    err.errorMsg = errorMsg;
     logNormal(err.stack);
     throw err;
 };

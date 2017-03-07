@@ -8,6 +8,10 @@ let fs = require('fs');
 let writeFile = promisfy(fs.writeFile);
 let readFile = promisfy(fs.readFile);
 
+let {
+    runTests
+} = require('./testRunner');
+
 /**
  * @param src String
  *   source code file path
@@ -37,5 +41,6 @@ let generateTests = (src, dest, test, opts) => {
 module.exports = {
     parseComment,
     testParser,
-    generateTests
+    generateTests,
+    runTests
 };

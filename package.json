@@ -18,10 +18,11 @@
   "author": "ddchen",
   "license": "MIT",
   "dependencies": {
-    "chokidar": "^1.4.3",
+    "chokidar": "^1.6.1",
     "cl-jsoneq": "0.0.2",
-    "del": "^2.2.0",
+    "del": "^2.2.2",
     "es6-promisify": "^4.0.0",
+    "glob": "^7.1.1",
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {

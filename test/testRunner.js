@@ -1,7 +1,7 @@
 'use strict';
 
 let {
-    runTests
+    runTests, runDirTests, runDirTestsWithResult
 } = require('../src/testRunner');
 
 let assert = require('assert');
@@ -29,4 +29,37 @@ describe('testRunner', () => {
             assert.deepEqual(ret.cases.length, 1);
         });
     });
+
+    it('runDirTests', () => {
+        return runDirTests('**/*.js', {
+            srcDir: path.join(__dirname, './fixture/glob'),
+            destDir: path.join(__dirname, './fixture/globDest'),
+            testDir: path.join(__dirname, './fixture/globTest'),
+            opts: {
+                silent: true,
+                clean: true
+            }
+        }).then(ret => {
+            assert.deepEqual(ret.length, 1);
+            assert.deepEqual(ret[0].fail.length, 1);
+            assert.deepEqual(ret[0].cases.length, 2);
+        });
+    });
+
+    it('runDirTestsWithResult', () => {
+        return runDirTestsWithResult('**/*.js', {
+            srcDir: path.join(__dirname, './fixture/glob'),
+            destDir: path.join(__dirname, './fixture/globDest'),
+            testDir: path.join(__dirname, './fixture/globTest'),
+            opts: {
+                silent: false,
+                clean: true
+            }
+        }).then(ret => {
+            assert.deepEqual(ret.length, 1);
+            assert.deepEqual(ret[0].fail.length, 1);
+            assert.deepEqual(ret[0].cases.length, 2);
+        });
+    });
+
 });
