@@ -1,6 +1,7 @@
 # defcomment
  
 [![Build Status](https://travis-ci.org/LoveKino/defcomment.svg?branch=master)](https://travis-ci.org/LoveKino/defcomment)
+[![Coverage Status](https://coveralls.io/repos/github/LoveKino/defcomment/badge.svg)](https://coveralls.io/github/LoveKino/defcomment)
 
 ## goal
 
