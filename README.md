@@ -1,4 +1,6 @@
 # defcomment
+ 
+[![Build Status](https://travis-ci.org/LoveKino/defcomment.svg?branch=master)](https://travis-ci.org/LoveKino/defcomment)
 
 ## goal
 
