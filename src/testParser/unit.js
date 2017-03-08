@@ -1,8 +1,10 @@
 'use strict';
 
 let {
-    stringData, logError, logNormal, logPass, logHint
+    logError, logNormal, logPass, logHint
 } = require('../util');
+
+let stringData = require('./stringData');
 
 let eq = require('./eq');
 

@@ -16,6 +16,20 @@ let add = (v1, v2) => {
  *      [[2, 2], 0]
  * ]
  */
-let minus = (v1, v2) => {
+
+function minus(v1, v2) {
     return v1 - v2;
-};
+}
+
+/**
+ *
+ */
+
+/**
+ * ##
+ */
+
+/**
+ *
+ * ## test
+ */
