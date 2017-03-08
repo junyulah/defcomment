@@ -50,7 +50,7 @@ describe('testRunner', () => {
             destDir: path.join(__dirname, './fixture/globDest'),
             testDir: path.join(__dirname, './fixture/globTest'),
             opts: {
-                silent: false,
+                silent: true,
                 clean: true
             }
         }).then(ret => {
@@ -59,5 +59,4 @@ describe('testRunner', () => {
             assert.deepEqual(ret[0].cases.length, 2);
         });
     });
-
 });
