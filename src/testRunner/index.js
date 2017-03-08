@@ -2,7 +2,7 @@
 
 let parseComment = require('../parseComment');
 let testParser = require('../testParser');
-let promisfy = require('es6-promisify');
+let promisify = require('es6-promisify');
 let fs = require('fs');
 let del = require('del');
 let {
@@ -16,9 +16,9 @@ let {
     logPass, logError, logHint, logNormal
 } = require('../util');
 
-let writeFile = promisfy(fs.writeFile);
-let readFile = promisfy(fs.readFile);
-let mkdir = promisfy(fs.mkdir);
+let writeFile = promisify(fs.writeFile);
+let readFile = promisify(fs.readFile);
+let mkdirp = promisify(require('mkdirp'));
 
 let genTestComponents = (code, id, opts) => {
     // parse code
@@ -45,8 +45,8 @@ let runTests = (code, dest, test, opts = {}) => {
     } = genTestComponents(code, dest, opts);
 
     return Promise.all([
-        writeFile(test, testCode, 'utf-8'),
-        writeFile(dest, resultCode, 'utf-8')
+        flushFile(test, testCode, 'utf-8'),
+        flushFile(dest, resultCode, 'utf-8')
     ]).then(() => {
         let child = fork('testProcess.js', [test], {
             cwd: __dirname,
@@ -60,14 +60,26 @@ let runTests = (code, dest, test, opts = {}) => {
     });
 };
 
-let runDirTests = (pattern, {
+let flushFile = (filePath, str, encode) => {
+    return mkdirp(path.dirname(filePath)).then(() => {
+        return writeFile(filePath, str, encode);
+    });
+};
+
+let runDirTests = (pattern = '**/*.js', {
     srcDir, destDir, testDir, opts = {}
 }) => {
-    let prepare = opts.clean ? del([destDir, testDir]).then(() => {
-        return Promise.all([mkdir(destDir),
-            mkdir(testDir)
+    if (!srcDir) throw new Error('missing source directory');
+
+    destDir = destDir || path.resolve(srcDir, '../__dest__');
+    testDir = testDir || path.resolve(srcDir, '../__test__');
+
+    let prepare = Promise.resolve(opts.clean ? del([destDir, testDir]) : null).then(() => {
+        return Promise.all([
+            mkdirp(destDir),
+            mkdirp(testDir)
         ]);
-    }) : null;
+    });
 
     return Promise.resolve(prepare).then(() => {
         return new Promise((resolve, reject) => {
@@ -82,6 +94,7 @@ let runDirTests = (pattern, {
                             let srcFilePath = path.join(srcDir, file);
                             let destFilePath = path.join(destDir, file);
                             let testFilePath = path.join(testDir, file);
+
                             return readFile(srcFilePath, 'utf-8').then((code) => {
                                 return runTests(code, destFilePath, testFilePath, opts);
                             });
@@ -93,12 +106,8 @@ let runDirTests = (pattern, {
     });
 };
 
-let runDirTestsWithResult = (pattern, {
-    srcDir, destDir, testDir, opts = {}
-}) => {
-    return runDirTests(pattern, {
-        srcDir, destDir, testDir, opts
-    }).then(rets => {
+let runDirTestsWithResult = (...args) => {
+    return runDirTests(...args).then(rets => {
         let fails = rets.reduce((prev, ret) => {
             return prev.concat(ret.fail);
         }, []);
@@ -116,7 +125,7 @@ let runDirTestsWithResult = (pattern, {
             fails.forEach(({
                 id, varName, errorMsg, sampleString
             }, index) => {
-                logHint(`\n\r   ${index+1})${id.replace(destDir, srcDir)} : ${varName}`);
+                logHint(`\n\r   ${index+1})${id} : ${varName}`);
 
                 logNormal(`     ${errorMsg}`);
                 logNormal(sampleString);
@@ -126,17 +135,13 @@ let runDirTestsWithResult = (pattern, {
     });
 };
 
-let watchDirTests = (pattern, {
-    srcDir, destDir, testDir, opts = {}
-}) => {
-    let watcher = chokidar.watch(srcDir, {
-        ignored: opts.ignored || /node_modules/
+let watchDirTests = (pattern, options) => {
+    let watcher = chokidar.watch(options.srcDir, {
+        ignored: options.opts.ignored || /node_modules/
     });
 
     watcher.on('all', () => {
-        runDirTestsWithResult(pattern, {
-            srcDir, destDir, testDir, opts
-        });
+        runDirTestsWithResult(pattern, options);
     });
 };
 

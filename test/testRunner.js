@@ -33,14 +33,12 @@ describe('testRunner', () => {
     it('runDirTests', () => {
         return runDirTests('**/*.js', {
             srcDir: path.join(__dirname, './fixture/glob'),
-            destDir: path.join(__dirname, './fixture/globDest'),
-            testDir: path.join(__dirname, './fixture/globTest'),
             opts: {
                 silent: true,
                 clean: true
             }
         }).then(ret => {
-            assert.deepEqual(ret.length, 1);
+            assert.deepEqual(ret.length, 2);
             assert.deepEqual(ret[0].fail.length, 1);
             assert.deepEqual(ret[0].cases.length, 2);
         });
@@ -56,7 +54,7 @@ describe('testRunner', () => {
                 clean: true
             }
         }).then(ret => {
-            assert.deepEqual(ret.length, 1);
+            assert.deepEqual(ret.length, 2);
             assert.deepEqual(ret[0].fail.length, 1);
             assert.deepEqual(ret[0].cases.length, 2);
         });
