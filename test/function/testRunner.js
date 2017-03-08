@@ -2,7 +2,7 @@
 
 let {
     runTests, runDirTests, runDirTestsWithResult
-} = require('../src/testRunner');
+} = require('../../src/testRunner');
 
 let assert = require('assert');
 

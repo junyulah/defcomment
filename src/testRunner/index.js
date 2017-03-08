@@ -71,8 +71,13 @@ let runDirTests = (pattern = '**/*.js', {
 }) => {
     if (!srcDir) throw new Error('missing source directory');
 
+    srcDir = path.resolve(srcDir);
+
     destDir = destDir || path.resolve(srcDir, '../__dest__');
     testDir = testDir || path.resolve(srcDir, '../__test__');
+
+    destDir = path.resolve(destDir);
+    testDir = path.resolve(testDir);
 
     let prepare = Promise.resolve(opts.clean ? del([destDir, testDir]) : null).then(() => {
         return Promise.all([

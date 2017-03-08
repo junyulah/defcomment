@@ -6,7 +6,23 @@ A simple library to translate code commenting to tests or other.
 
 ## install
 
-`npm i defcomment --save-dev`
+`npm i defcomment -g` or `npm i defcomment --save-dev` 
+
+## run
+
+- quickest
+
+`deftest -s project/src` or `./node_modules/.bin/deftest -s project/src`
+
+- assign dest directory and test directory
+
+`deftest -s project/src -t project/test/unit -d project/test/dest`
+
+- watch
+
+Just add `--watch`
+
+`deftest -s project/src --watch`
 
 ## generate test
 
@@ -44,25 +60,6 @@ In your test data matrix, you can use js code. For example,
 var map = (handler, data) => {}
 ```
 
-### quick usage
-
-defComment provides a quick apporach. Just write a little code like these:
-
-```js
-var quick = require('defcomment/ext/quick');
-quick({
-    srcDir: __dirname + '/src', // your source directory
-    distDir: __dirname + '/test/unit/ret', // some place to hold compiled code, do not use these code for other usage.
-    testDir: __dirname + '/test/unit/test' // some place to hold your generated tests.
-});
-```
-
-Then, run this file, you will have a file watcher and when you change your source code, your unit tests will run automatically.
-
-- pay attention
-
-srcDir distDir testDir must be absolute path.
-
 ### how about high order function
 
 When your unit test is about a high order function, you should expand your array. See the example
@@ -98,28 +95,4 @@ var error = (v) => {
     }
     return v;
 };
-```
-
-### general usage
-
-- step1 add commenting to you code, like this
-
-- step2 compile source code
-
-```js
-var def = require('defcomment');
-var generateTests = def.generateTests;
-
-generateTests(srcFilePath, distFilePath, testPath);
-
-```
-
-Using generateTests api, pass source code file path, dist file path and test file path.
-
-- step3 run tests
-
-Just require the test files (generated in the step2).
-
-```
-require('testfile.js'); // testfile.js generated in step2
 ```

@@ -1,7 +1,7 @@
 'use strict';
 
-let parseComment = require('../src/parseComment');
-let testParser = require('../src/testParser');
+let parseComment = require('../../src/parseComment');
+let testParser = require('../../src/testParser');
 let assert = require('assert');
 
 describe('index', () => {

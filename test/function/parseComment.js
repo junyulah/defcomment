@@ -1,6 +1,6 @@
 'use strict';
 
-let parseComment = require('../src/parseComment');
+let parseComment = require('../../src/parseComment');
 let assert = require('assert');
 
 describe('parseComment', () => {

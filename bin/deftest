@@ -28,4 +28,7 @@ method(argv.p, {
         clean: argv.c,
         silent: argv.q
     }
+}).catch(err => {
+    console.log(err);
+    throw err;
 });

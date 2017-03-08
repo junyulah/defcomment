@@ -1,0 +1,14 @@
+{
+  "name": "defcomment-test-deploy-box",
+  "version": "0.0.1",
+  "description": "decomment test deploy box",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ddchen",
+  "license": "MIT",
+  "devDependencies": {
+    "defcomment": "file:///Users/yuer/workspaceforme/category/career/container/opensource/defcomment"
+  }
+}
