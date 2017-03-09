@@ -8,7 +8,7 @@ let {
 
 let yargs = require('yargs');
 
-yargs.usage('Usage: $0 -s [src directory] -d [dest directory] -t [test directory] -c -q --watch').demandOption(['s']);
+yargs.usage('Usage: $0 -s [src directory] -p [glob path] -d [dest directory] -t [test directory] -c -q --watch').demandOption(['s']);
 
 let {
     argv
@@ -28,7 +28,4 @@ method(argv.p, {
         clean: argv.c,
         silent: argv.q
     }
-}).catch(err => {
-    console.log(err);
-    throw err;
 });
