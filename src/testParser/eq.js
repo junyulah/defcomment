@@ -3,11 +3,13 @@
 let jsonEq = require('cl-jsoneq');
 
 let {
-    stringData, logError, logNormal
+    logError, logNormal
 } = require('../util');
 
+let stringData = require('./stringData');
+
 let errorInfo = (data1, data2) => {
-    let errorMsg = '[error] Data is not equal. target is ' + stringData(data1) + ';  source is ' + stringData(data2);
+    let errorMsg = '[error] Data is not equal. real is ' + stringData(data1) + ';  expect ' + stringData(data2);
     logError(errorMsg);
     let err = new Error('Data is not equal');
     err.errorMsg = errorMsg;
