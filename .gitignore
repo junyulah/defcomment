@@ -3,3 +3,4 @@ node_modules
 *.swn
 *.DS_Store
 test/fixture
+coverage

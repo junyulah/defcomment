@@ -62,7 +62,7 @@ let runUnit = (id, varName, sample, sampleString) => {
         return {
             result: false,
             stack: err.stack,
-            errorMsg: err.errorMsg
+            errorMsg: err.errorMsg || err.toString()
         };
     }
     return {
