@@ -8,7 +8,15 @@ let {
 
 let yargs = require('yargs');
 
-yargs.usage('Usage: $0 -s [src directory] -p [glob path] -d [dest directory] -t [test directory] -c -q --watch').demandOption(['s']);
+yargs.usage(`Usage: $0
+    -s [src directory]
+    -p [glob path]
+    -d [dest directory]
+    -t [test directory]
+    -c [clean]
+    -q [silent]
+    -e [env]
+    --watch`).demandOption(['s']);
 
 let {
     argv
@@ -26,6 +34,7 @@ method(argv.p, {
     testDir: argv.t,
     opts: {
         clean: argv.c,
-        silent: argv.q
+        silent: argv.q,
+        env: argv.e
     }
 });
