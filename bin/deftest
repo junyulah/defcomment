@@ -15,7 +15,7 @@ yargs.usage(`Usage: $0
     -t [test directory]
     -c [clean]
     -q [silent]
-    -e [env]
+    -e [env: browser | node, default is node]
     --watch`).demandOption(['s']);
 
 let {

@@ -27,6 +27,10 @@ Just add `--watch`
 
 `deftest -s project/src --watch`
 
+- environment
+
+Run js tests in browser environment, just add `-e browser` option.
+
 ## generate test
 
 ### how to write tests in commenting

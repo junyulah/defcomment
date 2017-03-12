@@ -9,8 +9,8 @@ let cases = [];
 cases.push(
     it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/tmp.js',
          'add',
-         [[[1,2],3]],
-         "[[[1,2],3]]")
+         [[[1,2],4], [[2,3],5]],
+         "[[[1,2],4], [[2,3],5]]")
 );
 
 var testRets = runCases(cases, '/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/tmp.js');
