@@ -71,7 +71,7 @@ let wipeCommentSymbols = (comment) => {
                 line = line.substring(1);
             }
         }
-        if (line) newLines.push(line);
+        newLines.push(line);
     }
     return newLines;
 };
