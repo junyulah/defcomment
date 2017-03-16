@@ -8,7 +8,7 @@ describe('parseComment', () => {
         assert.deepEqual(parseComment('/**/'), [{
             content: '/**/',
             next: '',
-            paraBlocks: []
+            paraBlocks: [['']]
         }]);
     });
 
@@ -16,11 +16,11 @@ describe('parseComment', () => {
         assert.deepEqual(parseComment('/**/abc/**/'), [{
             content: '/**/',
             next: 'abc',
-            paraBlocks: []
+            paraBlocks: [['']]
         }, {
             content: '/**/',
             next: '',
-            paraBlocks: []
+            paraBlocks: [['']]
         }]);
     });
 
@@ -60,8 +60,9 @@ describe('parseComment', () => {
             content: '/**\n#test1\n*abc\n#test2\n*def\n*lkl\n*/',
             next: '',
             paraBlocks: [
+                [''],
                 ['#test1', 'abc'],
-                ['#test2', 'def', 'lkl']
+                ['#test2', 'def', 'lkl', '']
             ]
         }]);
     });
