@@ -64,11 +64,13 @@ let wipeCommentSymbols = (comment) => {
 
     for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
-        line = line.trim();
+        line = line.replace(/^\s+/, '');
         if (line) {
             while (line[0] === COMMENT_PREFIX_ADDITION) {
                 line = line.substring(1);
-                line = line.trim();
+                if (line[0] === ' ') { // wipe first blank
+                    line = line.substring(1);
+                }
             }
             if (line) newLines.push(line);
         }

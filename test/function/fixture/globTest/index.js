@@ -10,20 +10,20 @@ cases.push(
     it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/index.js',
          'add',
          [
-[[1, 2], 3],
-[[1, 2], 4]
+     [[1, 2], 3],
+     [[1, 2], 4]
 ],
-         "[\n[[1, 2], 3],\n[[1, 2], 4]\n]")
+         "[\n     [[1, 2], 3],\n     [[1, 2], 4]\n]")
 );
 
 cases.push(
     it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/index.js',
          'minus',
          [
-[[1, 2], -1],
-[[2, 2], 0]
+     [[1, 2], -1],
+     [[2, 2], 0]
 ],
-         "[\n[[1, 2], -1],\n[[2, 2], 0]\n]")
+         "[\n     [[1, 2], -1],\n     [[2, 2], 0]\n]")
 );
 
 var testRets = runCases(cases, '/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/index.js');

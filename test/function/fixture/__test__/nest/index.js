@@ -10,9 +10,9 @@ cases.push(
     it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/__dest__/nest/index.js',
          'multiply',
          [
-[[3, 5], 15]
+    [[3, 5], 15]
 ],
-         "[\n[[3, 5], 15]\n]")
+         "[\n    [[3, 5], 15]\n]")
 );
 
 var testRets = runCases(cases, '/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/__dest__/nest/index.js');
