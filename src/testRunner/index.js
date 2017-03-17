@@ -18,7 +18,7 @@ let {
 let readFile = promisify(fs.readFile);
 let mkdirp = promisify(require('mkdirp'));
 
-const DEAFULT_PATTERN = '!(node_modules)';
+const DEAFULT_PATTERN = '**/*';
 
 let runDirTests = (pattern = DEAFULT_PATTERN, {
     srcDir, destDir, testDir, opts = {}
@@ -43,7 +43,9 @@ let runDirTests = (pattern = DEAFULT_PATTERN, {
     return Promise.resolve(prepare).then(() => {
         return new Promise((resolve, reject) => {
             glob(pattern, {
-                cwd: srcDir
+                cwd: srcDir,
+                nodir: true,
+                ignore: 'node_modules/*'
             }, (err, files) => {
                 if (err) {
                     reject(err);
