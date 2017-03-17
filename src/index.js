@@ -6,6 +6,7 @@ let testParser = require('./testParser');
 let {
     genTestComponents,
     runTests,
+    runTestsWithParsedCode,
     runDirTests,
     watchDirTests,
     runDirTestsWithResult
@@ -18,5 +19,6 @@ module.exports = {
     genTestComponents,
     runDirTests,
     watchDirTests,
-    runDirTestsWithResult
+    runDirTestsWithResult,
+    runTestsWithParsedCode
 };

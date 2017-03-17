@@ -44,6 +44,10 @@ let runTests = (code, dest, test, opts = {}) => {
         resultCode, testCode
     } = genTestComponents(code, dest, opts);
 
+    return runTestsWithParsedCode(resultCode, testCode, dest, test, opts);
+};
+
+let runTestsWithParsedCode = (resultCode, testCode, dest, test, opts = {}) => {
     return Promise.all([
         flushFile(test, testCode, 'utf-8'),
         flushFile(dest, resultCode, 'utf-8')
@@ -54,6 +58,7 @@ let runTests = (code, dest, test, opts = {}) => {
             return runTestInNodeProcess(test, opts);
         }
     });
+
 };
 
 let runTestInNodeProcess = (test, opts) => {
@@ -85,5 +90,6 @@ let runTestInBrowser = (test) => {
 
 module.exports = {
     genTestComponents,
-    runTests
+    runTests,
+    runTestsWithParsedCode
 };

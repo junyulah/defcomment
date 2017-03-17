@@ -8,7 +8,7 @@ let path = require('path');
 let chokidar = require('chokidar');
 
 let {
-    runTests, genTestComponents
+    runTests, genTestComponents, runTestsWithParsedCode
 } = require('./runTests');
 
 let {
@@ -111,5 +111,6 @@ module.exports = {
     runTests,
     runDirTests,
     watchDirTests,
-    runDirTestsWithResult
+    runDirTestsWithResult,
+    runTestsWithParsedCode
 };
