@@ -32,10 +32,12 @@ let testParser = (blocks, id, {
             testEnd
         });
         if (!sample) return prev;
-
-        let testVar = getNextDefiningVariable(block.next);
-        if (!testVar && testVariables.tar === 'function') {
-            throw new Error(`could not find function name. please use "let(or var or const) a = " or "function a " at the first none-empty line under comments. ${JSON.stringify(block)}`);
+        let testVar = null;
+        if (testVariables.tar === 'function') {
+            testVar = getNextDefiningVariable(block.next);
+            if (!testVar && testVariables.tar === 'function') {
+                throw new Error(`could not find function name. please use "let(or var or const) a = " or "function a " at the first none-empty line under comments. ${JSON.stringify(block)}`);
+            }
         }
 
         prev.push({
