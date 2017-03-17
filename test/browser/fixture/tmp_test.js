@@ -7,10 +7,10 @@ let runCases = unit.runCases;
 let cases = [];
 
 cases.push(
-    it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/browser/fixture/tmp.js',
+    it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/browser/fixture/tmp.js', {"test":"","tar":"function"},
          'add',
-         [[[1,2],3]],
-         "[[[1,2],3]]")
+         "[[[1,2],3]]",
+         [[[1,2],3]])
 );
 
 var testRets = runCases(cases, '/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/browser/fixture/tmp.js');

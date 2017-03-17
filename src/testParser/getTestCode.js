@@ -3,12 +3,20 @@
 module.exports = (tests, id) => {
     let unitTests = tests.map(test => {
         let sampleString = JSON.stringify(test.sample.toString());
-        return `cases.push(
-    it('${id}',
+        if (test.testVariables.tar === 'bash') {
+            return `cases.push(
+    it('${id}', ${JSON.stringify(test.testVariables)},
          '${test.testVar}',
-         ${test.sample},
          ${sampleString})
 );`;
+        } else {
+            return `cases.push(
+    it('${id}', ${JSON.stringify(test.testVariables)},
+         '${test.testVar}',
+         ${sampleString},
+         ${test.sample})
+);`;
+        }
     });
 
     return `'use strict';
@@ -25,6 +33,5 @@ var testRets = runCases(cases, '${id}');
 
 if(typeof module === 'object') {
     module.exports = testRets;
-}
-`;
+}`;
 };

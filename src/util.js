@@ -18,9 +18,23 @@ var logHint = (info) => {
     log('\x1b[33m', info, '\x1b[0m');
 };
 
+let parseSimpleKVLine = (line) => {
+    let parts = line.split(/\s/);
+    return parts.reduce((prev, part) => {
+        part = part.trim();
+        if (part) {
+            let [key, ...rest] = part.split('=');
+            prev[key] = rest.join('=');
+        }
+
+        return prev;
+    }, {});
+};
+
 module.exports = {
     logError,
     logNormal,
     logPass,
-    logHint
+    logHint,
+    parseSimpleKVLine
 };

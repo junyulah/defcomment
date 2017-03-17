@@ -16,7 +16,7 @@ yargs.usage(`Usage: $0
     -c [clean]
     -q [silent]
     -e [env: browser | node, default is node]
-    --watch`).demandOption(['s']);
+    --watch`).demandOption(['s']).help('h').alias('h', 'help');
 
 let {
     argv

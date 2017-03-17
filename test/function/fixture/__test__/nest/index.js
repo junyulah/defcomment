@@ -7,12 +7,12 @@ let runCases = unit.runCases;
 let cases = [];
 
 cases.push(
-    it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/__dest__/nest/index.js',
+    it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/__dest__/nest/index.js', {"test":"","tar":"function"},
          'multiply',
+         "[\n    [[3, 5], 15]\n]",
          [
     [[3, 5], 15]
-],
-         "[\n    [[3, 5], 15]\n]")
+])
 );
 
 var testRets = runCases(cases, '/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/__dest__/nest/index.js');

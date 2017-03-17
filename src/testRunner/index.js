@@ -18,7 +18,7 @@ let {
 let readFile = promisify(fs.readFile);
 let mkdirp = promisify(require('mkdirp'));
 
-let runDirTests = (pattern = '**/*.js', {
+let runDirTests = (pattern = '!(node_modules)**/*.js', {
     srcDir, destDir, testDir, opts = {}
 }) => {
     if (!srcDir) throw new Error('missing source directory');

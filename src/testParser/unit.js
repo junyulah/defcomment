@@ -5,6 +5,7 @@ let {
 } = require('../util');
 
 let stringData = require('./stringData');
+let path = require('path');
 
 let eq = require('./eq');
 
@@ -23,35 +24,77 @@ let exportsVariable = (id, name, testVar) => {
 };
 
 let runCases = (cases, id) => {
-    let fail = cases.reduce((prev, c) => {
-        let ret = c.fun();
-        if (!ret.result) {
-            c.stack = ret.stack;
-            c.errorMsg = ret.errorMsg;
-            prev.push(c);
-        }
-
-        return prev;
-    }, []);
-
-    return {
-        cases,
-        fail,
-        id
-    };
+    return cases.reduce((prevp, c) => {
+        return prevp.then((prev) => {
+            return Promise.resolve(c.fun()).then((ret) => {
+                if (!ret.result) {
+                    c.stack = ret.stack;
+                    c.errorMsg = ret.errorMsg;
+                    prev.push(c);
+                }
+                return prev;
+            });
+        });
+    }, Promise.resolve([])).then((fail) => {
+        return {
+            cases,
+            fail,
+            id
+        };
+    });
 };
 
-let it = (id, varName, sample, sampleString) => {
+/**
+ * used to collect test cases
+ */
+let it = (id, testVariables, varName, sampleString, sample) => {
+    let fun = null;
+    if (testVariables.tar === 'bash') {
+        fun = () => runBash(id, sampleString);
+    } else {
+        fun = () => runMatrixTestData(id, varName, sample, sampleString);
+    }
     return {
-        fun: () => runUnit(id, varName, sample, sampleString),
+        fun,
         varName,
         id,
         sample,
-        sampleString
+        sampleString,
+        testVariables
     };
 };
 
-let runUnit = (id, varName, sample, sampleString) => {
+let runBash = (id, sampleString) => {
+    let {
+        exec
+    } = eval('require')('child_process');
+
+    return new Promise((resolve) => {
+        let child = exec(sampleString, {
+            cwd: path.dirname(id)
+        }, (err) => {
+            if (err) {
+                resolve({
+                    result: false,
+                    stack: err.stack,
+                    errorMsg: err.errorMsg || err.toString()
+                });
+            } else {
+                resolve({
+                    result: true
+                });
+            }
+        });
+        child.stdout.on('data', (stdout) => {
+            console.log(stdout); // eslint-disable-line
+        });
+        child.stderr.on('data', (stderr) => {
+            console.log(stderr); // eslint-disable-line
+        });
+    });
+};
+
+let runMatrixTestData = (id, varName, sample, sampleString) => {
     try {
         run(id, varName, sample);
     } catch (err) {

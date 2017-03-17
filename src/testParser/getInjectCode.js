@@ -6,7 +6,7 @@
 
 module.exports = (tests, id) => {
     let varExports = tests.map(test =>
-        `__exportsVariable('${id}', '${test.testVar}', ${test.testVar});`
+        test.testVar? `__exportsVariable('${id}', '${test.testVar}', ${test.testVar});`: ''
     );
 
     return `!(function () {

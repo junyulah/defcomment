@@ -7,23 +7,23 @@ let runCases = unit.runCases;
 let cases = [];
 
 cases.push(
-    it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/index.js',
+    it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/index.js', {"test":"","tar":"function"},
          'add',
+         "[\n     [[1, 2], 3],\n     [[1, 2], 4]\n]",
          [
      [[1, 2], 3],
      [[1, 2], 4]
-],
-         "[\n     [[1, 2], 3],\n     [[1, 2], 4]\n]")
+])
 );
 
 cases.push(
-    it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/index.js',
+    it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/index.js', {"test":"","tar":"function"},
          'minus',
+         "[\n     [[1, 2], -1],\n     [[2, 2], 0]\n]",
          [
      [[1, 2], -1],
      [[2, 2], 0]
-],
-         "[\n     [[1, 2], -1],\n     [[2, 2], 0]\n]")
+])
 );
 
 var testRets = runCases(cases, '/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/index.js');

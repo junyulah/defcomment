@@ -63,7 +63,15 @@ let runTestInNodeProcess = (test, opts) => {
     });
 
     return new Promise((resolve, reject) => {
-        child.on('message', resolve);
+        child.on('message', ({
+            type, data, errorStack
+        }) => {
+            if (type === 'error') {
+                reject(new Error(errorStack));
+            } else {
+                resolve(data);
+            }
+        });
         child.on('error', reject);
     });
 };
