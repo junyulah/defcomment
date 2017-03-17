@@ -45,7 +45,7 @@ let runDirTests = (pattern = DEAFULT_PATTERN, {
             glob(pattern, {
                 cwd: srcDir,
                 nodir: true,
-                ignore: 'node_modules/*'
+                ignore: 'node_modules/**/*'
             }, (err, files) => {
                 if (err) {
                     reject(err);

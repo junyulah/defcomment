@@ -1,6 +1,6 @@
 {
   "name": "defcomment",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "A simple library to translate code commenting to tests or other.",
   "main": "src/index.js",
   "directories": {

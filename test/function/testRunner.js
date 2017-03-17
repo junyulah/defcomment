@@ -73,7 +73,7 @@ describe('testRunner', () => {
     });
 
     it('run no require', () => {
-        const DEAFULT_PATTERN = '!(node_modules)';
+        const DEAFULT_PATTERN = '**/*';
 
         return runDirTests(DEAFULT_PATTERN, {
             srcDir: path.join(__dirname, './fixture/bin'),
