@@ -72,6 +72,22 @@ describe('testRunner', () => {
         });
     });
 
+    it('run no require', () => {
+        const DEAFULT_PATTERN = '!(node_modules)';
+
+        return runDirTests(DEAFULT_PATTERN, {
+            srcDir: path.join(__dirname, './fixture/bin'),
+            opts: {
+                silent: true,
+                clean: true
+            }
+        }).then(ret => {
+            assert.deepEqual(ret[0].cases[0].result.stdouts, '123\n');
+            assert.deepEqual(ret[0].fail.length, 0);
+            assert.deepEqual(ret[0].cases.length, 1);
+        });
+    });
+
     it('runDirTestsWithResult', () => {
         return runDirTestsWithResult('**/*.js', {
             srcDir: path.join(__dirname, './fixture/glob'),

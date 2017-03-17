@@ -25,20 +25,27 @@ let exportsVariable = (id, name, testVar) => {
 
 let runCases = (cases, id) => {
     return cases.reduce((prevp, c) => {
-        return prevp.then((prev) => {
+        return prevp.then(([pass, fail]) => {
             return Promise.resolve(c.fun()).then((ret) => {
                 if (!ret.result) {
                     c.stack = ret.stack;
                     c.errorMsg = ret.errorMsg;
-                    prev.push(c);
+                    fail.push(c);
+                } else {
+                    c.result = ret;
+                    pass.push(c);
                 }
-                return prev;
+                return [pass, fail];
             });
         });
-    }, Promise.resolve([])).then((fail) => {
+    }, Promise.resolve([
+        [],
+        []
+    ])).then(([pass, fail]) => {
         return {
             cases,
             fail,
+            pass,
             id
         };
     });
@@ -54,6 +61,7 @@ let it = (id, testVariables, varName, sampleString, sample) => {
     } else {
         fun = () => runMatrixTestData(id, varName, sample, sampleString);
     }
+
     return {
         fun,
         varName,
@@ -72,7 +80,7 @@ let runBash = (id, sampleString) => {
     return new Promise((resolve) => {
         let child = exec(sampleString, {
             cwd: path.dirname(id)
-        }, (err) => {
+        }, (err, stdouts, stderrs) => {
             if (err) {
                 resolve({
                     result: false,
@@ -81,7 +89,9 @@ let runBash = (id, sampleString) => {
                 });
             } else {
                 resolve({
-                    result: true
+                    result: true,
+                    stdouts,
+                    stderrs
                 });
             }
         });

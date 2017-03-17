@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * TODO generate bin file tests
+ */
 module.exports = (tests, id) => {
     let unitTests = tests.map(test => {
         let sampleString = JSON.stringify(test.sample.toString());
@@ -19,9 +22,12 @@ module.exports = (tests, id) => {
         }
     });
 
-    return `'use strict';
-require('${id}'); // require source code
+    let requirePart = tests.findIndex(({
+        testVar
+    }) => !!testVar) !== -1 ? `require('${id}'); // require source code` : '';
 
+    return `'use strict';
+${requirePart}
 let unit = require('${__dirname}/unit');
 let it = unit.it;
 let runCases = unit.runCases;
