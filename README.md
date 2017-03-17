@@ -7,6 +7,16 @@
 
 A simple library to translate code commenting to tests or other.
 
+## features
+
+- write simple test data in code comment
+
+- support function test
+
+- support browser and node environment
+
+- support bash test case
+
 ## install
 
 `npm i defcomment -g` or `npm i defcomment --save-dev` 
@@ -102,4 +112,13 @@ var error = (v) => {
     }
     return v;
 };
+```
+
+### simple bash test
+
+```js
+/**
+ * ## test tar=bash
+ * cd .. && echo 123
+ */
 ```
