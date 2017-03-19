@@ -58,7 +58,6 @@ let runTestsWithParsedCode = (resultCode, testCode, dest, test, opts = {}) => {
             return runTestInNodeProcess(test, opts);
         }
     });
-
 };
 
 let runTestInNodeProcess = (test, opts) => {

@@ -21,7 +21,7 @@ let mkdirp = promisify(require('mkdirp'));
 const DEAFULT_PATTERN = '**/*';
 
 let runDirTests = (pattern = DEAFULT_PATTERN, {
-    srcDir, destDir, testDir, opts = {}
+    srcDir, destDir, testDir, opts = {}, ignores = ['node_modules/**/*', '**/*/node_modules/**/*']
 }) => {
     if (!srcDir) throw new Error('missing source directory');
 
@@ -45,7 +45,7 @@ let runDirTests = (pattern = DEAFULT_PATTERN, {
             glob(pattern, {
                 cwd: srcDir,
                 nodir: true,
-                ignore: 'node_modules/**/*'
+                ignore: ignores
             }, (err, files) => {
                 if (err) {
                     reject(err);

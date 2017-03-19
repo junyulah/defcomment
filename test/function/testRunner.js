@@ -29,7 +29,7 @@ describe('testRunner', () => {
             */;`, tempFile,
 
             tempTestFile, {
-                silent: true
+                silent: false
             }).then(ret => {
                 assert.deepEqual(ret.fail.length, 0);
                 assert.deepEqual(ret.cases.length, 1);

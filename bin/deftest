@@ -11,6 +11,7 @@ let yargs = require('yargs');
 yargs.usage(`Usage: $0
     -s [src directory]
     -p [glob path]
+    -i [ignores glob]
     -d [dest directory]
     -t [test directory]
     -c [clean]
@@ -32,6 +33,7 @@ method(argv.p, {
     srcDir: argv.s,
     destDir: argv.d,
     testDir: argv.t,
+    ignores: argv.i,
     opts: {
         clean: argv.c,
         silent: argv.q,
