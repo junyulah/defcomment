@@ -66,4 +66,30 @@ describe('parseComment', () => {
             ]
         }]);
     });
+
+    it('mulitple blocks', () => {
+        console.log(JSON.stringify(parseComment(`
+/**
+ * @readme-quick-run
+ *
+ * run buildreadme in your project root
+ *
+ * ## test tar=bash
+ *
+ * cd ../test/fixture/node/p0
+ * ./node_modules/.bin/buildreadme
+ */
+
+ /**
+  * @readme-quick-run
+  *
+  * write result to readme.md, just add -w option
+  *
+  * ## test tar=bash
+  *
+  * cd ../test/fixture/node/p0
+  * ./node_modules/.bin/buildreadme -w
+  */
+            `), null, 4));
+    });
 });

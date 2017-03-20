@@ -85,7 +85,7 @@ let getTitle = (paraBlock) => {
 let getTestSample = (testBlock, {
     testEnd
 }) => {
-    testBlock.shift();
+    testBlock = testBlock.slice(1);
 
     let lines = [];
 
