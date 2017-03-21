@@ -38,13 +38,13 @@ let runBash = (id, testVariables, varName, sampleString) => {
     });
 };
 
-module.exports = (id, testVariables, varName, sampleString, sample) => {
+module.exports = (id, testVariables, varName, sampleString, sample, requiredCurrentJs) => {
     let tar = testVariables.tar;
     if (tar === 'bash') {
-        return runBash(id, testVariables, varName, sampleString, sample);
+        return runBash(id, testVariables, varName, sampleString, sample, requiredCurrentJs);
     } else if (tar === 'js') {
-        return runNode(id, testVariables, varName, sampleString, sample);
+        return runNode(id, testVariables, varName, sampleString, sample, requiredCurrentJs);
     } else {
-        return runMatrixTestData(id, testVariables, varName, sampleString, sample);
+        return runMatrixTestData(id, testVariables, varName, sampleString, sample, requiredCurrentJs);
     }
 };

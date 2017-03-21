@@ -68,9 +68,35 @@ describe('testRunner', () => {
             */;`, tempFile,
 
             tempTestFile, {
-                silent: false
+                silent: true
             }).then(ret => {
                 assert.deepEqual(ret.fail.length, 1);
+                assert.deepEqual(ret.cases.length, 1);
+            });
+    });
+
+    it('run node: require current js file as a global variable', () => {
+        return runTests(`/*##test tar=js r_c=num
+            assert.equal(1 + 3, num);
+            */\nmodule.exports = 4;`, tempFile,
+
+            tempTestFile, {
+                silent: false
+            }).then(ret => {
+                assert.deepEqual(ret.fail.length, 0);
+                assert.deepEqual(ret.cases.length, 1);
+            });
+    });
+
+    it('run node: default require name', () => {
+        return runTests(`/*##test tar=js r_c
+            assert.equal(1 + 3, tmp);
+            */\nmodule.exports = 4;`, tempFile,
+
+            tempTestFile, {
+                silent: false
+            }).then(ret => {
+                assert.deepEqual(ret.fail.length, 0);
                 assert.deepEqual(ret.cases.length, 1);
             });
     });

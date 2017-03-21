@@ -47,9 +47,9 @@ let runCases = (cases, id) => {
 /**
  * used to collect test cases
  */
-let it = (id, testVariables, varName, sampleString, sample) => {
+let it = (id, testVariables, varName, sampleString, sample, requiredCurrentJs) => {
     return {
-        fun: () => run(id, testVariables, varName, sampleString, sample),
+        fun: () => run(id, testVariables, varName, sampleString, sample, requiredCurrentJs),
         varName,
         id,
         sample,

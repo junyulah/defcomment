@@ -1,5 +1,5 @@
 'use strict';
-require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/index.js'); // require source code
+let requiredCurrentJs = require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/index.js'); // require source code
 let unit = require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/src/unit');
 let it = unit.it;
 let runCases = unit.runCases;
@@ -12,7 +12,8 @@ cases.push(
          [
      [[1, 2], 3],
      [[1, 2], 4]
-])
+],
+         requiredCurrentJs)
 );
 
 cases.push(
@@ -22,7 +23,8 @@ cases.push(
          [
      [[1, 2], -1],
      [[2, 2], 0]
-])
+],
+         requiredCurrentJs)
 );
 
 var testRets = runCases(cases, '/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/index.js');

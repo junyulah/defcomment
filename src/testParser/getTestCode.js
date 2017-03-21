@@ -15,27 +15,30 @@ module.exports = (tests, id) => {
             return `cases.push(
     it('${id}', ${JSON.stringify(test.testVariables)},
          '${test.testVar}',
-         ${sampleString})
+         ${sampleString},
+         null,
+         requiredCurrentJs)
 );`;
         } else if (tar === 'js') { // just push some js code
             return `cases.push(
    it('${id}', ${JSON.stringify(test.testVariables)},
         '${test.testVar}',
-        ${sampleString})
+        ${sampleString},
+        null,
+        requiredCurrentJs)
 )`;
         } else {
             return `cases.push(
     it('${id}', ${JSON.stringify(test.testVariables)},
          '${test.testVar}',
          ${sampleString},
-         ${test.sample})
+         ${test.sample},
+         requiredCurrentJs)
 );`;
         }
     });
 
-    let requirePart = tests.findIndex(({
-        testVar
-    }) => !!testVar) !== -1 ? `require('${id}'); // require source code` : '';
+    let requirePart = shouldRequireCurrentJs(tests) ? `let requiredCurrentJs = require('${id}'); // require source code` : 'let requiredCurrentJs = null;';
 
     return `'use strict';
 ${requirePart}
@@ -51,4 +54,18 @@ var testRets = runCases(cases, '${id}');
 if(typeof module === 'object') {
     module.exports = testRets;
 }`;
+};
+
+let shouldRequireCurrentJs = (tests) => {
+    let existVarRefer = tests.findIndex(({
+        testVar
+    }) => !!testVar) !== -1;
+
+    if (existVarRefer) return true;
+
+    let referInJs = tests.findIndex(({
+        testVariables
+    }) => testVariables.hasOwnProperty('r_c')) !== -1;
+
+    if (referInJs) return true;
 };

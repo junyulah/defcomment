@@ -1,5 +1,5 @@
 'use strict';
-require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/tmp.js'); // require source code
+let requiredCurrentJs = require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/tmp.js'); // require source code
 let unit = require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/src/unit');
 let it = unit.it;
 let runCases = unit.runCases;
@@ -9,7 +9,8 @@ cases.push(
     it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/tmp.js', {"test":"","tar":"function"},
          'add',
          "[[[1,2],4], [[2,3],5]]",
-         [[[1,2],4], [[2,3],5]])
+         [[[1,2],4], [[2,3],5]],
+         requiredCurrentJs)
 );
 
 var testRets = runCases(cases, '/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/tmp.js');
