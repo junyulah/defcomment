@@ -26,37 +26,29 @@ module.exports = (id, testVariables, varName, sampleString, sample, requiredCurr
 };
 
 let run = (id, testVariables, varName, sampleString, requiredCurrentJs) => {
-    let waitingP = null;
-
-    let wait = (p) => {
-        waitingP = p;
-    };
-
     if (typeof window !== 'undefined') {
         if (testVariables.hasOwnProperty('r_c')) {
-            let f = new Function('assert', 'wait', getCurrentRequireObjName(id, testVariables), sampleString);
-            f(assert, wait, requiredCurrentJs);
+            let f = new Function('assert', getCurrentRequireObjName(id, testVariables), sampleString);
+            return f(assert, requiredCurrentJs);
         } else {
-            let f = new Function('assert', 'wait', sampleString);
-            f(assert, wait);
+            let f = new Function('assert', sampleString);
+            return f(assert);
         }
     } else {
+        sampleString = `(() => {${sampleString}})()`;
         const vm = eval('require')('vm');
         const script = new vm.Script(sampleString);
         const sandbox = Object.assign(global, {
-            assert,
-            wait
+            assert
         });
         if (testVariables.hasOwnProperty('r_c')) {
             sandbox[getCurrentRequireObjName(id, testVariables)] = requiredCurrentJs;
         }
         const context = new vm.createContext(sandbox);
-        script.runInContext(context, {
+        return script.runInContext(context, {
             displayErrors: true
         });
     }
-
-    return waitingP;
 };
 
 let getCurrentRequireObjName = (id, testVariables) => {
