@@ -31,4 +31,34 @@ describe('browser', () => {
             assert.deepEqual(ret.cases.length, 1);
         });
     });
+
+    it('runInBrowser: require', () => {
+        return runTests('/*##test tar=js c_r=num\nassert.equal(3, num)\n*/module.exports=3', tempFile, tempTestFile, {
+            silent: true,
+            env: 'browser'
+        }).then(ret => {
+            assert.deepEqual(ret.fail.length, 1);
+            assert.deepEqual(ret.cases.length, 1);
+        });
+    });
+
+    it('runInBrowser: wait promise', () => {
+        return runTests('/*##test tar=js c_r=num\nwait(new Promise((resolve) => {setTimeout(resolve, 1000)}))\n*/module.exports=3', tempFile, tempTestFile, {
+            silent: true,
+            env: 'browser'
+        }).then(ret => {
+            assert.deepEqual(ret.fail.length, 0);
+            assert.deepEqual(ret.cases.length, 1);
+        });
+    });
+
+    it('runInBrowser: wait promise, reject', () => {
+        return runTests('/*##test tar=js c_r=num\nwait(new Promise((resolve) => {setTimeout(reject, 1000)}))\n*/module.exports=3', tempFile, tempTestFile, {
+            silent: true,
+            env: 'browser'
+        }).then(ret => {
+            assert.deepEqual(ret.fail.length, 1);
+            assert.deepEqual(ret.cases.length, 1);
+        });
+    });
 });
