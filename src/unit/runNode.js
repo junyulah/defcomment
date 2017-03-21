@@ -42,8 +42,8 @@ let run = (id, testVariables, varName, sampleString, requiredCurrentJs) => {
         const sandbox = Object.assign(global, {
             assert,
             wait,
-            require,
-            __dirname: id
+            require: eval('require'),
+            __dirname: path.dirname(id)
         });
         if (testVariables.hasOwnProperty('r_c')) {
             sandbox[getCurrentRequireObjName(id, testVariables)] = requiredCurrentJs;
