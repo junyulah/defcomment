@@ -114,9 +114,9 @@ describe('testRunner', () => {
             });
     });
 
-    it('run node: wait promise', () => {
+    it('run node: wait promise, just using expressions', () => {
         return runTests(`/*##test tar=js r_c
-            wait(new Promise((resolve, reject) => {setTimeout(reject, 1000)}))
+            new Promise((resolve, reject) => {setTimeout(reject, 1000)})
             */\nmodule.exports = 4;`, tempFile,
 
             tempTestFile, {

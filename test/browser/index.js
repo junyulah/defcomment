@@ -43,7 +43,7 @@ describe('browser', () => {
     });
 
     it('runInBrowser: wait promise', () => {
-        return runTests('/*##test tar=js c_r=num\nwait(new Promise((resolve) => {setTimeout(resolve, 1000)}))\n*/module.exports=3', tempFile, tempTestFile, {
+        return runTests('/*##test tar=js c_r=num\nwait(new Promise((resolve) => {setTimeout(resolve, 100)}))\n*/module.exports=3', tempFile, tempTestFile, {
             silent: true,
             env: 'browser'
         }).then(ret => {
@@ -52,8 +52,8 @@ describe('browser', () => {
         });
     });
 
-    it('runInBrowser: wait promise, reject', () => {
-        return runTests('/*##test tar=js c_r=num\nwait(new Promise((resolve) => {setTimeout(reject, 1000)}))\n*/module.exports=3', tempFile, tempTestFile, {
+    it('runInBrowser: wait promise, reject, return as last expression', () => {
+        return runTests('/*##test tar=js c_r=num\nnew Promise((resolve) => {setTimeout(reject, 100)})\n*/module.exports=3', tempFile, tempTestFile, {
             silent: true,
             env: 'browser'
         }).then(ret => {

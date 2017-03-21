@@ -2,6 +2,7 @@
 
 let assert = require('assert');
 let path = require('path');
+let runJsAtEval = require('./runJsAtEval');
 
 module.exports = (id, testVariables, varName, sampleString, sample, requiredCurrentJs) => {
     try {
@@ -26,20 +27,15 @@ module.exports = (id, testVariables, varName, sampleString, sample, requiredCurr
 };
 
 let run = (id, testVariables, varName, sampleString, requiredCurrentJs) => {
-    let waitingP = null;
+    let waitingP = null,
+        ret = null;
 
     let wait = (p) => {
         waitingP = p;
     };
 
     if (typeof window !== 'undefined') {
-        if (testVariables.hasOwnProperty('r_c')) {
-            let f = new Function('assert', 'wait', getCurrentRequireObjName(id, testVariables), sampleString);
-            f(assert, wait, requiredCurrentJs);
-        } else {
-            let f = new Function('assert', 'wait', sampleString);
-            f(assert, wait);
-        }
+        ret = runJsAtEval(sampleString, testVariables, wait, requiredCurrentJs, getCurrentRequireObjName(id, testVariables));
     } else {
         const vm = eval('require')('vm');
         const script = new vm.Script(sampleString);
@@ -51,12 +47,12 @@ let run = (id, testVariables, varName, sampleString, requiredCurrentJs) => {
             sandbox[getCurrentRequireObjName(id, testVariables)] = requiredCurrentJs;
         }
         const context = new vm.createContext(sandbox);
-        script.runInContext(context, {
+        ret = script.runInContext(context, {
             displayErrors: true
         });
     }
 
-    return waitingP;
+    return waitingP || ret;
 };
 
 let getCurrentRequireObjName = (id, testVariables) => {

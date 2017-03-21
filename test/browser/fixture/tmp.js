@@ -1,5 +1,5 @@
 /*##test tar=js c_r=num
-wait(new Promise((resolve) => {setTimeout(reject, 1000)}))
+new Promise((resolve) => {setTimeout(reject, 100)})
 */module.exports=3
 
 !(function () {
