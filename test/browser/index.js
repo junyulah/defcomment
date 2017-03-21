@@ -21,4 +21,14 @@ describe('browser', () => {
             assert.deepEqual(ret.cases.length, 1);
         });
     });
+
+    it('runInBrowser: tar=js', () => {
+        return runTests('/*##test tar=js\nassert.equal(3, 4)\n*/', tempFile, tempTestFile, {
+            silent: true,
+            env: 'browser'
+        }).then(ret => {
+            assert.deepEqual(ret.fail.length, 1);
+            assert.deepEqual(ret.cases.length, 1);
+        });
+    });
 });

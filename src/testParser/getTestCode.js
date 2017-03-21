@@ -17,14 +17,11 @@ module.exports = (tests, id) => {
          '${test.testVar}',
          ${sampleString})
 );`;
-        } else if (tar === 'node') { // just push some js code
+        } else if (tar === 'js') { // just push some js code
             return `cases.push(
    it('${id}', ${JSON.stringify(test.testVariables)},
         '${test.testVar}',
-        ${sampleString}),
-        (function(){
-            ${test.sample}
-        })()
+        ${sampleString})
 )`;
         } else {
             return `cases.push(

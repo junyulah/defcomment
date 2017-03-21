@@ -29,7 +29,7 @@ describe('testRunner', () => {
             */;`, tempFile,
 
             tempTestFile, {
-                silent: false
+                silent: true
             }).then(ret => {
                 assert.deepEqual(ret.fail.length, 0);
                 assert.deepEqual(ret.cases.length, 1);
@@ -44,6 +44,32 @@ describe('testRunner', () => {
             tempTestFile, {
                 silent: true
             }).then((ret) => {
+                assert.deepEqual(ret.fail.length, 1);
+                assert.deepEqual(ret.cases.length, 1);
+            });
+    });
+
+    it('run node code', () => {
+        return runTests(`/*##test tar=js
+            assert.equal(1 + 1, 2)
+            */;`, tempFile,
+
+            tempTestFile, {
+                silent: true
+            }).then(ret => {
+                assert.deepEqual(ret.fail.length, 0);
+                assert.deepEqual(ret.cases.length, 1);
+            });
+    });
+
+    it('run node fail', () => {
+        return runTests(`/*##test tar=js
+            assert.equal(1 + 1, 3)
+            */;`, tempFile,
+
+            tempTestFile, {
+                silent: false
+            }).then(ret => {
                 assert.deepEqual(ret.fail.length, 1);
                 assert.deepEqual(ret.cases.length, 1);
             });
