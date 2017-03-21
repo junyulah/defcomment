@@ -37,11 +37,11 @@ let run = (id, testVariables, varName, sampleString, requiredCurrentJs) => {
     if (typeof window !== 'undefined') {
         ret = runJsAtEval(sampleString, testVariables, wait, requiredCurrentJs, getCurrentRequireObjName(id, testVariables));
     } else {
+        sampleString = `(() => {${sampleString}})()`;
         const vm = eval('require')('vm');
         const script = new vm.Script(sampleString);
         const sandbox = Object.assign(global, {
-            assert,
-            wait
+            assert
         });
         if (testVariables.hasOwnProperty('r_c')) {
             sandbox[getCurrentRequireObjName(id, testVariables)] = requiredCurrentJs;

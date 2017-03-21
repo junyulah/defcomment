@@ -8,7 +8,7 @@ let cases = [];
 cases.push(
    it('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/browser/fixture/tmp.js', {"test":"","tar":"js","c_r":"num"},
         'null',
-        "new Promise((resolve) => {setTimeout(reject, 100)})",
+        "return new Promise((resolve, reject) => {setTimeout(reject, 500)})",
         null,
         requiredCurrentJs)
 )

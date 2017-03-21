@@ -103,7 +103,7 @@ describe('testRunner', () => {
 
     it('run node: wait promise', () => {
         return runTests(`/*##test tar=js r_c
-            wait(new Promise((resolve) => {setTimeout(resolve, 1000)}))
+            return new Promise((resolve) => {setTimeout(resolve, 1000)})
             */\nmodule.exports = 4;`, tempFile,
 
             tempTestFile, {
@@ -114,15 +114,28 @@ describe('testRunner', () => {
             });
     });
 
-    it('run node: wait promise, just using expressions', () => {
+    it('run node: promise, reject', () => {
         return runTests(`/*##test tar=js r_c
-            new Promise((resolve, reject) => {setTimeout(reject, 1000)})
+            return new Promise((resolve, reject) => {setTimeout(reject, 1000)})
             */\nmodule.exports = 4;`, tempFile,
 
             tempTestFile, {
                 silent: false
             }).then(ret => {
                 assert.deepEqual(ret.fail.length, 1);
+                assert.deepEqual(ret.cases.length, 1);
+            });
+    });
+
+    it('run node: return', () => {
+        return runTests(`/*##test tar=js r_c
+            return 4;
+            */\nmodule.exports = 4;`, tempFile,
+
+            tempTestFile, {
+                silent: false
+            }).then(ret => {
+                assert.deepEqual(ret.fail.length, 0);
                 assert.deepEqual(ret.cases.length, 1);
             });
     });
