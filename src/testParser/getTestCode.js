@@ -1,17 +1,31 @@
 'use strict';
 
+let path = require('path');
+
+const UNIT_PATH = path.resolve(__dirname, '../unit');
+
 /**
  * TODO generate bin file tests
  */
 module.exports = (tests, id) => {
     let unitTests = tests.map(test => {
         let sampleString = JSON.stringify(test.sample.toString());
-        if (test.testVariables.tar === 'bash') {
+        let tar = test.testVariables.tar;
+        if (tar === 'bash') {
             return `cases.push(
     it('${id}', ${JSON.stringify(test.testVariables)},
          '${test.testVar}',
          ${sampleString})
 );`;
+        } else if (tar === 'node') { // just push some js code
+            return `cases.push(
+   it('${id}', ${JSON.stringify(test.testVariables)},
+        '${test.testVar}',
+        ${sampleString}),
+        (function(){
+            ${test.sample}
+        })()
+)`;
         } else {
             return `cases.push(
     it('${id}', ${JSON.stringify(test.testVariables)},
@@ -28,7 +42,7 @@ module.exports = (tests, id) => {
 
     return `'use strict';
 ${requirePart}
-let unit = require('${__dirname}/unit');
+let unit = require('${UNIT_PATH}');
 let it = unit.it;
 let runCases = unit.runCases;
 let cases = [];

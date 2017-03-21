@@ -14,6 +14,6 @@ module.exports = {
 
 
 !(function () {
-    var __exportsVariable = require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/src/testParser/unit').exportsVariable;
+    var __exportsVariable = require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/src/unit').exportsVariable;
     __exportsVariable('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/nest/index.js', 'multiply', multiply);
 })();

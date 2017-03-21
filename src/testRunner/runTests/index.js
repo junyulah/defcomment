@@ -1,7 +1,7 @@
 'use strict';
 
-let parseComment = require('../parseComment');
-let testParser = require('../testParser');
+let parseComment = require('../../parseComment');
+let testParser = require('../../testParser');
 let promisify = require('es6-promisify');
 let fs = require('fs');
 let browserJsEnvTest = require('browser-js-env');
@@ -11,6 +11,10 @@ let mkdirp = promisify(require('mkdirp'));
 let {
     fork
 } = require('child_process');
+
+const NODE_PROCESS_FILE = path.resolve(__dirname, '../env/nodeProcess');
+
+const DEFAULT_TEST_DIR = path.resolve(__dirname, '../../../test/fixture/__test_dir__');
 
 let writeFile = promisify(fs.writeFile);
 
@@ -61,7 +65,7 @@ let runTestsWithParsedCode = (resultCode, testCode, dest, test, opts = {}) => {
 };
 
 let runTestInNodeProcess = (test, opts) => {
-    let child = fork('env/nodeProcess.js', [test], {
+    let child = fork(NODE_PROCESS_FILE, [test], {
         cwd: __dirname,
         silent: opts.silent
     });
@@ -82,7 +86,7 @@ let runTestInNodeProcess = (test, opts) => {
 
 let runTestInBrowser = (test) => {
     return browserJsEnvTest(`module.exports=require("${test}")`, {
-        testDir: path.join(__dirname, '../../test/fixture/__test_dir__'),
+        testDir: DEFAULT_TEST_DIR,
         clean: true
     });
 };

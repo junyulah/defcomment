@@ -12,6 +12,8 @@
 
 - plugins: support test react component
 
+- support run some js code as test
+
 ## finished
 
 - support high order function

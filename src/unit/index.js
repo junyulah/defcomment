@@ -1,13 +1,13 @@
 'use strict';
 
+let path = require('path');
+
 let {
     logError, logNormal, logPass, logHint
 } = require('../util');
 
-let stringData = require('./stringData');
-let path = require('path');
-
 let eq = require('./eq');
+let stringData = require('./stringData');
 
 let __env_global = null;
 if (typeof window !== 'undefined') {
@@ -58,6 +58,8 @@ let it = (id, testVariables, varName, sampleString, sample) => {
     let fun = null;
     if (testVariables.tar === 'bash') {
         fun = () => runBash(id, sampleString);
+    } else if (testVariables === 'node') {
+        fun = () => runNode(id, sample);
     } else {
         fun = () => runMatrixTestData(id, varName, sample, sampleString);
     }
@@ -71,6 +73,8 @@ let it = (id, testVariables, varName, sampleString, sample) => {
         testVariables
     };
 };
+
+let runNode = () => {};
 
 let runBash = (id, sampleString) => {
     let {
