@@ -11,6 +11,13 @@ let mkdirp = promisify(require('mkdirp'));
 let {
     fork
 } = require('child_process');
+let {
+    logError, logNormal, logHint, logPass
+} = require('../../util');
+
+let logs = {
+    logError, logNormal, logHint, logPass
+};
 
 const NODE_PROCESS_FILE = path.resolve(__dirname, '../env/nodeProcess');
 
@@ -70,16 +77,34 @@ let runTestInNodeProcess = (test, opts) => {
         silent: opts.silent
     });
 
+    let stdouts = [],
+        stderrs = [];
+
+    child.stdout && child.stdout.on('data', (chunk) => {
+        stdouts.push(chunk.toString());
+    });
+
+    child.stderr && child.stderr.on('data', (chunk) => {
+        stderrs.push(chunk.toString());
+    });
+
     return new Promise((resolve, reject) => {
         child.on('message', ({
             type, data, errorStack
         }) => {
             if (type === 'error') {
                 reject(new Error(errorStack));
-            } else {
+            } else if (type === 'result') {
+                data.stdouts = stdouts;
+                data.stderrs = stderrs;
                 resolve(data);
+            } else if (type === 'log') {
+                if (!opts.silent) {
+                    logs[data[0]](data[1]);
+                }
             }
         });
+
         child.on('error', reject);
     });
 };

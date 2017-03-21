@@ -4,7 +4,7 @@ let jsonEq = require('cl-jsoneq');
 
 let {
     logError, logNormal
-} = require('../util');
+} = require('./log');
 
 let stringData = require('./stringData');
 

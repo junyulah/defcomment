@@ -25,12 +25,14 @@ describe('testRunner', () => {
         return runTests(`/*##test tar=bash
             cd ..
             echo 123
-            pwd
             */;`, tempFile,
 
             tempTestFile, {
                 silent: true
             }).then(ret => {
+                let output = ret.stdouts.join('').trim();
+                assert.equal(output, ret.cases[0].result.stdouts.trim());
+                assert.equal(output, '123');
                 assert.deepEqual(ret.fail.length, 0);
                 assert.deepEqual(ret.cases.length, 1);
             });
@@ -62,6 +64,19 @@ describe('testRunner', () => {
             });
     });
 
+    it('js stdout', () => {
+        return runTests(`/*##test tar=js
+            console.log(1234);
+            */;`, tempFile,
+
+            tempTestFile, {
+                silent: true
+            }).then(ret => {
+                assert.equal(ret.stdouts.join('').trim(), '1234');
+                assert.deepEqual(ret.fail.length, 0);
+                assert.deepEqual(ret.cases.length, 1);
+            });
+    });
     it('run node fail', () => {
         return runTests(`/*##test tar=js
             assert.equal(1 + 1, 3)

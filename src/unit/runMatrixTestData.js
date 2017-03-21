@@ -2,7 +2,7 @@
 
 let {
     logError, logNormal, logHint, logPass
-} = require('../util');
+} = require('./log');
 
 let eq = require('./eq');
 let stringData = require('./stringData');

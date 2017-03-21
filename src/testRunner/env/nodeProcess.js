@@ -7,7 +7,7 @@
 try {
     Promise.resolve(require(process.argv[2])).then((testResults) => {
         process.send({
-            type: 'message',
+            type: 'result',
             data: testResults
         });
     }).catch(err => {
