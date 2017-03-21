@@ -41,7 +41,9 @@ let run = (id, testVariables, varName, sampleString, requiredCurrentJs) => {
         const script = new vm.Script(sampleString);
         const sandbox = Object.assign(global, {
             assert,
-            wait
+            wait,
+            require,
+            __dirname: id
         });
         if (testVariables.hasOwnProperty('r_c')) {
             sandbox[getCurrentRequireObjName(id, testVariables)] = requiredCurrentJs;
