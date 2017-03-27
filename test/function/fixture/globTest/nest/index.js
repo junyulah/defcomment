@@ -1,5 +1,5 @@
 'use strict';
-let requiredCurrentJs = require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/nest/index.js'); // require source code
+let cJs = require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/nest/index.js'); // require source code
 let unit = require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/src/unit');
 let it = unit.it;
 let runCases = unit.runCases;
@@ -12,7 +12,7 @@ cases.push(
          [
     [[3, 5], 15]
 ],
-         requiredCurrentJs)
+         cJs)
 );
 
 var testRets = runCases(cases, '/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/globDest/nest/index.js');

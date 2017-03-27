@@ -17,7 +17,7 @@ module.exports = (tests, id) => {
          '${test.testVar}',
          ${sampleString},
          null,
-         requiredCurrentJs)
+         cJs)
 );`;
         } else if (tar === 'js') { // just push some js code
             return `cases.push(
@@ -25,7 +25,7 @@ module.exports = (tests, id) => {
         '${test.testVar}',
         ${sampleString},
         null,
-        requiredCurrentJs)
+        cJs)
 )`;
         } else {
             return `cases.push(
@@ -33,12 +33,12 @@ module.exports = (tests, id) => {
          '${test.testVar}',
          ${sampleString},
          ${test.sample},
-         requiredCurrentJs)
+         cJs)
 );`;
         }
     });
 
-    let requirePart = shouldRequireCurrentJs(tests) ? `let requiredCurrentJs = require('${id}'); // require source code` : 'let requiredCurrentJs = null;';
+    let requirePart = shouldRequireCurrentJs(tests) ? `let cJs = require('${id}'); // require source code` : 'let cJs = null;';
 
     return `'use strict';
 ${requirePart}

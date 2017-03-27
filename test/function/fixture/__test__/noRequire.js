@@ -1,5 +1,5 @@
 'use strict';
-let requiredCurrentJs = null;
+let cJs = null;
 let unit = require('/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/src/unit');
 let it = unit.it;
 let runCases = unit.runCases;
@@ -10,7 +10,7 @@ cases.push(
          'null',
          "echo 123",
          null,
-         requiredCurrentJs)
+         cJs)
 );
 
 var testRets = runCases(cases, '/Users/yuer/workspaceforme/category/career/container/opensource/defcomment/test/function/fixture/__dest__/noRequire.js');
