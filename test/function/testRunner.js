@@ -30,12 +30,12 @@ describe('testRunner', () => {
             tempTestFile, {
                 silent: true
             }).then(ret => {
-                let output = ret.stdouts.join('').trim();
-                assert.equal(output, ret.cases[0].result.stdouts.trim());
-                assert.equal(output, '123');
-                assert.deepEqual(ret.fail.length, 0);
-                assert.deepEqual(ret.cases.length, 1);
-            });
+            let output = ret.stdouts.join('').trim();
+            assert.equal(output, ret.cases[0].result.stdouts.trim());
+            assert.equal(output, '123');
+            assert.deepEqual(ret.fail.length, 0);
+            assert.deepEqual(ret.cases.length, 1);
+        });
     });
 
     it('bash-error', () => {
@@ -46,9 +46,9 @@ describe('testRunner', () => {
             tempTestFile, {
                 silent: true
             }).then((ret) => {
-                assert.deepEqual(ret.fail.length, 1);
-                assert.deepEqual(ret.cases.length, 1);
-            });
+            assert.deepEqual(ret.fail.length, 1);
+            assert.deepEqual(ret.cases.length, 1);
+        });
     });
 
     it('run node code', () => {
@@ -59,9 +59,9 @@ describe('testRunner', () => {
             tempTestFile, {
                 silent: true
             }).then(ret => {
-                assert.deepEqual(ret.fail.length, 0);
-                assert.deepEqual(ret.cases.length, 1);
-            });
+            assert.deepEqual(ret.fail.length, 0);
+            assert.deepEqual(ret.cases.length, 1);
+        });
     });
 
     it('js stdout', () => {
@@ -72,10 +72,10 @@ describe('testRunner', () => {
             tempTestFile, {
                 silent: true
             }).then(ret => {
-                assert.equal(ret.stdouts.join('').trim(), '1234');
-                assert.deepEqual(ret.fail.length, 0);
-                assert.deepEqual(ret.cases.length, 1);
-            });
+            assert.equal(ret.stdouts.join('').trim(), '1234');
+            assert.deepEqual(ret.fail.length, 0);
+            assert.deepEqual(ret.cases.length, 1);
+        });
     });
     it('run node fail', () => {
         return runTests(`/*##test tar=js
@@ -85,9 +85,9 @@ describe('testRunner', () => {
             tempTestFile, {
                 silent: true
             }).then(ret => {
-                assert.deepEqual(ret.fail.length, 1);
-                assert.deepEqual(ret.cases.length, 1);
-            });
+            assert.deepEqual(ret.fail.length, 1);
+            assert.deepEqual(ret.cases.length, 1);
+        });
     });
 
     it('run node: require current js file as a global variable', () => {
@@ -98,9 +98,9 @@ describe('testRunner', () => {
             tempTestFile, {
                 silent: false
             }).then(ret => {
-                assert.deepEqual(ret.fail.length, 0);
-                assert.deepEqual(ret.cases.length, 1);
-            });
+            assert.deepEqual(ret.fail.length, 0);
+            assert.deepEqual(ret.cases.length, 1);
+        });
     });
 
     it('run node: default require name', () => {
@@ -111,9 +111,9 @@ describe('testRunner', () => {
             tempTestFile, {
                 silent: false
             }).then(ret => {
-                assert.deepEqual(ret.fail.length, 0);
-                assert.deepEqual(ret.cases.length, 1);
-            });
+            assert.deepEqual(ret.fail.length, 0);
+            assert.deepEqual(ret.cases.length, 1);
+        });
     });
 
     it('run node: wait promise', () => {
@@ -124,9 +124,9 @@ describe('testRunner', () => {
             tempTestFile, {
                 silent: false
             }).then(ret => {
-                assert.deepEqual(ret.fail.length, 0);
-                assert.deepEqual(ret.cases.length, 1);
-            });
+            assert.deepEqual(ret.fail.length, 0);
+            assert.deepEqual(ret.cases.length, 1);
+        });
     });
 
     it('run node: promise, reject', () => {
@@ -137,9 +137,29 @@ describe('testRunner', () => {
             tempTestFile, {
                 silent: false
             }).then(ret => {
-                assert.deepEqual(ret.fail.length, 1);
-                assert.deepEqual(ret.cases.length, 1);
-            });
+            assert.deepEqual(ret.fail.length, 1);
+            assert.deepEqual(ret.cases.length, 1);
+        });
+    });
+
+    it('run node: variable seperation', () => {
+        return runTests(`/** ## test tar=js
+* let y = 10;
+*
+*/ 
+
+/** ## test tar=js
+*
+*  let y = 20;
+*
+*/`, tempFile,
+
+            tempTestFile, {
+                silent: false
+            }).then(ret => {
+            assert.deepEqual(ret.fail.length, 0);
+            assert.deepEqual(ret.cases.length, 2);
+        });
     });
 
     it('fail', () => {

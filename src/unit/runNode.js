@@ -7,6 +7,21 @@ let {
     logError, logPass, logHint, logNormal
 } = require('./log');
 
+const GLOBAL_OBJECT_PROPERTIES = [
+    'NaN', 'Infinity', 'undefined', 'eval', 'parseInt', 'parseFloat', 'isNaN',
+    'isFinite', 'decodeURI', 'decodeURIComponent', 'encodeURI',
+    'encodeURIComponent', 'Object', 'Function', 'Array', 'String', 'Boolean',
+    'Number', 'Date', 'RegExp', 'Error', 'EvalError', 'RangeError',
+    'ReferenceError', 'SyntaxError', 'TypeError', 'URIError', 'Math', 'JSON'
+];
+
+const GLOBAL_OBJECT_PROPERTY_MAP = {};
+
+for (var n = 0; n < GLOBAL_OBJECT_PROPERTIES.length; n++) {
+    GLOBAL_OBJECT_PROPERTY_MAP[GLOBAL_OBJECT_PROPERTIES[n]] =
+        GLOBAL_OBJECT_PROPERTIES[n];
+}
+
 module.exports = (id, testVariables, varName, sampleString, sample, cJs) => {
     try {
         return Promise.resolve(run(id, testVariables, varName, sampleString, cJs)).then(() => {
@@ -51,22 +66,41 @@ let run = (id, testVariables, varName, sampleString, cJs) => {
     } else {
         const vm = eval('require')('vm');
         const script = new vm.Script(sampleString);
-        const sandbox = Object.assign(global, {
+        const sandbox = {
             require: eval('require'),
             assert,
             wait,
             __dirname: path.dirname(id)
-        });
+        };
         if (testVariables.hasOwnProperty('r_c')) {
             sandbox[getCurrentRequireObjName(id, testVariables)] = cJs;
         }
-        const context = new vm.createContext(sandbox);
+        const context = createContext(sandbox);
         ret = script.runInContext(context, {
             displayErrors: true
         });
     }
 
     return waitingP || ret;
+};
+
+let createContext = (sandbox = {}) => {
+    const vm = eval('require')('vm');
+    let context = vm.createContext(sandbox);
+    context.global = context;
+
+    var names = Object.getOwnPropertyNames(global);
+    for (var n = 0; n < names.length; n++) {
+        var name = names[n];
+        if (name === 'global')
+            continue;
+        if (GLOBAL_OBJECT_PROPERTY_MAP[name] === undefined) {
+            Object.defineProperty(context, name,
+                Object.getOwnPropertyDescriptor(global, name));
+        }
+    }
+
+    return context;
 };
 
 let getCurrentRequireObjName = (id, testVariables) => {
