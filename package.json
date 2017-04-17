@@ -24,7 +24,7 @@
   "author": "ddchen",
   "license": "MIT",
   "dependencies": {
-    "browser-js-env": "0.0.4",
+    "browser-js-env": "0.0.5",
     "chokidar": "^1.6.1",
     "cl-jsoneq": "0.0.2",
     "del": "^2.2.2",
