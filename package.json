@@ -1,6 +1,6 @@
 {
   "name": "defcomment",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "description": "A simple library to translate code commenting to tests or other.",
   "main": "src/index.js",
   "directories": {
@@ -24,7 +24,7 @@
   "author": "ddchen",
   "license": "MIT",
   "dependencies": {
-    "browser-js-env": "0.0.5",
+    "browser-js-env": "0.0.6",
     "chokidar": "^1.6.1",
     "cl-jsoneq": "0.0.2",
     "del": "^2.2.2",
