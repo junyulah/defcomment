@@ -61,9 +61,20 @@ let run = (id, testVariables, varName, sampleString, cJs) => {
         waitingP = p;
     };
 
-    if (typeof window !== 'undefined') {
-        ret = runJsAtEval(sampleString, testVariables, wait, cJs, getCurrentRequireObjName(id, testVariables));
-    } else {
+    const curRequireName = getCurrentRequireObjName(id, testVariables);
+
+    if (testVariables.env === 'browser' && // expect run in browser
+        typeof process !== undefined // current env is process
+    ) {
+        const browserJsEnv = eval('require')('browser-js-env');
+        sampleString = `var assert = require('assert');var ${curRequireName} = require('${id}');${sampleString}`;
+        return browserJsEnv(sampleString, {
+            testDir: '__browser_test_dir__',
+            clean: true
+        });
+    } else if (typeof window !== 'undefined') { // already at browser env
+        ret = runJsAtEval(sampleString, testVariables, wait, cJs, curRequireName);
+    } else { // run code in node env
         const vm = eval('require')('vm');
         const script = new vm.Script(sampleString);
         const sandbox = {
@@ -73,7 +84,7 @@ let run = (id, testVariables, varName, sampleString, cJs) => {
             __dirname: path.dirname(id)
         };
         if (testVariables.hasOwnProperty('r_c')) {
-            sandbox[getCurrentRequireObjName(id, testVariables)] = cJs;
+            sandbox[curRequireName] = cJs;
         }
         const context = createContext(sandbox);
         ret = script.runInContext(context, {
@@ -103,6 +114,9 @@ let createContext = (sandbox = {}) => {
     return context;
 };
 
+/**
+ * get current module's require name
+ */
 let getCurrentRequireObjName = (id, testVariables) => {
     return testVariables['r_c'] || getDefaultName(id);
 };

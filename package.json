@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "mocha test/function/**.js",
-    "browserTest": "mocha test/browser/**.js",
+    "browserTest": "mocha test/browser/env.js",
     "deployTest": "mocha test/deploy/index.js -t 1000000",
     "cover": "istanbul cover _mocha test/function/**.js"
   },

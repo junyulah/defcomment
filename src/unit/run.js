@@ -4,7 +4,7 @@ let path = require('path');
 
 let runMatrixTestData = require('./runMatrixTestData');
 
-let runNode = require('./runNode');
+let runJs = require('./runJs');
 
 let runBash = (id, testVariables, varName, sampleString) => {
     let {
@@ -43,7 +43,7 @@ module.exports = (id, testVariables, varName, sampleString, sample, requiredCurr
     if (tar === 'bash') {
         return runBash(id, testVariables, varName, sampleString, sample, requiredCurrentJs);
     } else if (tar === 'js') {
-        return runNode(id, testVariables, varName, sampleString, sample, requiredCurrentJs);
+        return runJs(id, testVariables, varName, sampleString, sample, requiredCurrentJs);
     } else {
         return runMatrixTestData(id, testVariables, varName, sampleString, sample, requiredCurrentJs);
     }
