@@ -1,5 +1,8 @@
 ## todo
 
+- seperate each tests in independent environment
+     bug global variables
+
 - summary test results and report it
 
 - support io and async
