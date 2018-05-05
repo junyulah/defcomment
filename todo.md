@@ -1,5 +1,7 @@
 ## todo
 
+- run each case seperatley
+
 - summary test results and report it
 
 - support io and async
