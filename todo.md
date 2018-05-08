@@ -1,6 +1,11 @@
 ## todo
 
+<<<<<<< HEAD
 - run each case seperatley
+=======
+- seperate each tests in independent environment
+     bug global variables
+>>>>>>> 87a81dec2f23a07a3b2fb36c832d964a9dbef3b7
 
 - summary test results and report it
 

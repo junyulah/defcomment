@@ -1,5 +1,6 @@
 'use strict';
 
+let uuidV4 = require('uuid/v4');
 let assert = require('assert');
 let path = require('path');
 let runJsAtEval = require('./runJsAtEval');
@@ -69,7 +70,7 @@ let run = (id, testVariables, varName, sampleString, cJs) => {
         const browserJsEnv = eval('require')('browser-js-env');
         sampleString = `var assert = require('assert');var ${curRequireName} = require('${id}');${sampleString}`;
         return browserJsEnv(sampleString, {
-            testDir: '__browser_test_dir__',
+            testDir: '__browser_test_dir__' + uuidV4(),
             clean: true
         });
     } else if (typeof window !== 'undefined') { // already at browser env
